@@ -1,0 +1,92 @@
+/Users/rene/workspace/openbakery/OBTableViewController/Core/Source/OBTableViewSection.m:
+       |    1|//
+       |    2|//
+       |    3|// Created by Rene Pirringer.
+       |    4|//
+       |    5|//
+       |    6|//
+       |    7|
+       |    8|
+       |    9|#import "OBTableViewSection.h"
+       |   10|
+       |   11|@interface OBTableViewSection()
+       |   12|@property (nonatomic, assign) NSInteger identifier;
+       |   13|@end;
+       |   14|
+       |   15|
+       |   16|@implementation OBTableViewSection {
+       |   17|
+       |   18|}
+       |   19|
+       |   20|
+     32|   21|- (id)init {
+     32|   22|	self = [super init];
+     32|   23|	if (self) {
+     32|   24|		self.editable = YES;
+     32|   25|	}
+     32|   26|	return self;
+     32|   27|}
+       |   28|
+       |   29|
+      4|   30|- (id)initWithHeaderTitle:(NSString *)title {
+      4|   31|	self = [self init];
+      4|   32|	if (self) {
+      4|   33|		self.headerTitle = title;
+      4|   34|	}
+      4|   35|	return self;
+      4|   36|}
+       |   37|
+       |   38|
+     24|   39|- (id)copyWithZone:(NSZone *)zone {
+     24|   40|	OBTableViewSection *copy = [[self class] allocWithZone:zone];
+     24|   41|	if (copy) {
+     24|   42|		copy.identifier = self.identifier;
+     24|   43|	}
+     24|   44|	return copy;
+     24|   45|
+     24|   46|}
+       |   47|
+     95|   48|- (BOOL)isEqual:(id)other {
+     95|   49|	if (other == self) {
+      0|   50|			return YES;
+      0|   51|	}
+     95|   52|	if (!other || ![[other class] isEqual:[self class]]) {
+      0|   53|			return NO;
+      0|   54|	}
+     95|   55|
+     95|   56|	return [self isEqualToSection:other];
+     95|   57|}
+       |   58|
+     95|   59|- (BOOL)isEqualToSection:(OBTableViewSection *)section {
+     95|   60|	if (self == section) {
+      0|   61|			return YES;
+      0|   62|	}
+     95|   63|	if (section == nil) {
+      0|   64|			return NO;
+      0|   65|	}
+     95|   66|	if (self.identifier != section.identifier) {
+     29|   67|			return NO;
+     29|   68|	}
+     66|   69|	return YES;
+     95|   70|}
+       |   71|
+    126|   72|- (NSUInteger)hash {
+    126|   73|	return (NSUInteger) self.identifier;
+    126|   74|}
+       |   75|
+       |   76|
+      0|   77|- (NSString *)description {
+      0|   78|	NSMutableString *description = [NSMutableString stringWithFormat:@"<%@: ", NSStringFromClass([self class])];
+      0|   79|	[description appendString:@"id="];
+      0|   80|	[description appendFormat:@"%d", (int)self.identifier];
+      0|   81|	if (self.headerTitle) {
+      0|   82|		[description appendString:@" headerTitle="];
+      0|   83|		[description appendFormat:@"%@", self.headerTitle];
+      0|   84|
+      0|   85|	}
+      0|   86|	[description appendString:@">"];
+      0|   87|	return description;
+      0|   88|}
+       |   89|
+       |   90|
+       |   91|@end

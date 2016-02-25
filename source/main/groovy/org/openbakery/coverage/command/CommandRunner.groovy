@@ -66,7 +66,7 @@ class CommandRunner {
 					if (line == null) {
 						running = false
 					} else {
-						logger.info(line)
+						//logger.debug(line)
 						outputAppender.appendLine(line)
 						commandOutputBuffer.add(line)
 					}

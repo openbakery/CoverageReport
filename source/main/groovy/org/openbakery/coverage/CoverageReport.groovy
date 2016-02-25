@@ -1,5 +1,9 @@
 package org.openbakery.coverage
 
+import ch.qos.logback.classic.Level;
+import ch.qos.logback.classic.Logger
+import org.slf4j.LoggerFactory;
+
 /**
  * Created by René Pirringer
  */
@@ -10,7 +14,7 @@ class CoverageReport {
 	Report report
 
 	CoverageReport(String[] args) {
-		commandLine = new CliBuilder(usage: 'coverageReport [options]')
+		commandLine = new CliBuilder(usage: 'CoverageReport [options]')
 		commandLine.with {
 			h longOpt: 'help', 'Show usage information'
 			p longOpt: 'profdata', args: 1, argName:'profdata', 'Profile model file'
@@ -18,6 +22,8 @@ class CoverageReport {
 			i longOpt: 'include', args: 1, argName:'include', 'include file pattern'
 			t longOpt: 'type', args: 1, argName:'type', 'report type (text, html, xml)'
 			o longOpt: 'output', args: 1, argName:'output', 'output directory for the generated reports'
+			d longOpt: 'debug', 'enable debug log'
+
 		}
 		options = commandLine.parse(args)
 	}
@@ -43,6 +49,18 @@ class CoverageReport {
 		if (options.binary) {
 			report.binary = options.b
 		}
+
+		if (options.debug) {
+			setLoggingLevel(Level.DEBUG)
+		}
+
+
+
+	}
+
+	void setLoggingLevel(Level level) {
+		Logger root = (Logger)LoggerFactory.getLogger(Logger.ROOT_LOGGER_NAME);
+		root.setLevel(level);
 	}
 
 	void run() {
@@ -51,11 +69,7 @@ class CoverageReport {
 			return
 		}
 
-
 		if (options.profdata && options.binary ) {
-			report.profileData = options.p
-			report.binary = options.b
-
 			report.create()
 			return;
 		}

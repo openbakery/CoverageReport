@@ -6,11 +6,14 @@ import org.openbakery.coverage.report.ReportData
 import org.openbakery.coverage.model.SourceFile
 import org.openbakery.coverage.report.TextReport
 import org.openbakery.coverage.report.XMLReport
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 
 /**
  * Created by René Pirringer
  */
 class Report implements OutputAppender {
+	private static Logger logger = LoggerFactory.getLogger(Report.class)
 
 	static enum Type {
 		Text("text"),
@@ -37,7 +40,7 @@ class Report implements OutputAppender {
 	}
 
 
-	CommandRunner commandRunner
+	CommandRunner commandRunner = new CommandRunner()
 	File profileData
 	File binary
 	List<SourceFile> sourceFiles = []
@@ -93,8 +96,10 @@ class Report implements OutputAppender {
 			}
 		}
 
+
 		createCoverageData(sourceFile)
 
+		logger.debug("createReport")
 		createReport()
 	}
 
@@ -111,7 +116,7 @@ class Report implements OutputAppender {
 		if (sourceFile != null) {
 			command << sourceFile.absolutePath
 		}
-
+		logger.debug("command: {}", command)
 		commandRunner.runWithResult(command, this)
 	}
 

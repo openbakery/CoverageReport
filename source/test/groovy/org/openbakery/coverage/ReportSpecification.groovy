@@ -275,4 +275,12 @@ class ReportSpecification extends Specification {
 		then:
 		report instanceof XMLReport
 	}
+
+	def "command runner"() {
+		when:
+		report = new Report()
+
+		then:
+		report.commandRunner instanceof CommandRunner
+	}
 }

@@ -77,24 +77,39 @@ class SourceFile {
 	}
 
 	static long getLinesCovered(List<SourceFile> sourceFiles) {
+		if (sourceFiles == null || sourceFiles.size() == 0) {
+			return 0
+		}
 		return sourceFiles.sum { it.getLinesCovered()}
 	}
 
 	static long getLinesNotCovered(List<SourceFile> sourceFiles) {
+		if (sourceFiles == null || sourceFiles.size() == 0) {
+			return 0
+		}
 		return sourceFiles.sum { it.getLinesNotCovered()}
 	}
 
 	static long getLinesExecuted(List<SourceFile> sourceFiles) {
+		if (sourceFiles == null || sourceFiles.size() == 0) {
+			return 0
+		}
 		return sourceFiles.sum { it.getLinesExecuted()}
 	}
 
 	static long getTotalLines(List<SourceFile> sourceFiles) {
+		if (sourceFiles == null || sourceFiles.size() == 0) {
+			return 0
+		}
 		return sourceFiles.sum {
 			it.sourceLines.size()
 		}
 	}
 
 	static double getCoverage(List<SourceFile> sourceFiles) {
+		if (sourceFiles == null || sourceFiles.size() == 0) {
+			return 0
+		}
 		return getLinesCovered(sourceFiles) / getLinesExecuted(sourceFiles)
 	}
 

@@ -2,8 +2,10 @@ package org.openbakery.coverage
 
 import org.apache.commons.io.FileUtils
 import org.openbakery.coverage.command.CommandRunner
+import org.openbakery.coverage.report.HTMLReport
 import org.openbakery.coverage.report.ReportData
 import org.openbakery.coverage.model.SourceFile
+import org.openbakery.coverage.report.XMLReport
 import spock.lang.Specification
 
 /**
@@ -227,6 +229,50 @@ class ReportSpecification extends Specification {
 		then:
 		reportData != null
 		reportData.sourcePackages.size() == 12
+	}
 
+	def "default destination path"() {
+		expect:
+		report.destinationPath == new File("coverage")
+	}
+
+	def "default report is txt"() {
+		given:
+		report.destinationPath = new File(tmp, "coverage")
+		report.commandRunner = new CommandRunner();
+		report.profileData = 'source/test/resource/Coverage.profdata'
+		report.binary = 'source/test/resource/Demo'
+
+		when:
+		report.create()
+
+		then:
+		report.destinationPath.exists()
+		new File(report.destinationPath, "coverage.txt").exists()
+	}
+
+
+	def "html report"() {
+
+		given:
+		report.type = Report.Type.HTML
+
+		when:
+		def report = report.getReportGenerator()
+
+		then:
+		report instanceof HTMLReport
+	}
+
+	def "xml report"() {
+
+		given:
+		report.type = Report.Type.XML
+
+		when:
+		def report = report.getReportGenerator()
+
+		then:
+		report instanceof XMLReport
 	}
 }

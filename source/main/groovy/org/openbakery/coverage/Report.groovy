@@ -1,20 +1,51 @@
 package org.openbakery.coverage
 
 import org.openbakery.coverage.command.CommandRunner
+import org.openbakery.coverage.report.HTMLReport
 import org.openbakery.coverage.report.ReportData
 import org.openbakery.coverage.model.SourceFile
+import org.openbakery.coverage.report.TextReport
+import org.openbakery.coverage.report.XMLReport
 
 /**
  * Created by René Pirringer
  */
 class Report implements OutputAppender {
+
+	static enum Type {
+		Text("text"),
+		HTML("html"),
+		XML("xml")
+
+		String value;
+
+		Type(String value) {
+			this.value = value;
+		}
+
+		static Type typeFromString(String string) {
+			if (string == null) {
+				return Text;
+			}
+			for (Type type in Type.values()) {
+				if (string.toLowerCase().startsWith(type.value.toLowerCase())) {
+					return type;
+				}
+			}
+			return Text;
+		}
+	}
+
+
 	CommandRunner commandRunner
 	File profileData
 	File binary
 	List<SourceFile> sourceFiles = []
 	List<String> coverageLines = []
 	String baseDirectory
-
+	File destinationPath = new File("coverage")
+	Type type
+	String include
 
 
 	void setBaseDirectory(String baseDirectory) {
@@ -64,6 +95,7 @@ class Report implements OutputAppender {
 
 		createCoverageData(sourceFile)
 
+		createReport()
 	}
 
 	void createCoverageData(File sourceFile) {
@@ -81,6 +113,27 @@ class Report implements OutputAppender {
 		}
 
 		commandRunner.runWithResult(command, this)
+	}
+
+	def getReportGenerator() {
+		switch (type) {
+			case Type.HTML:
+				return new HTMLReport()
+			case Type.XML:
+				return new XMLReport()
+			default:
+				break;
+		}
+		return new TextReport()
+	}
+
+	void createReport() {
+		if (reportData == null) {
+			println "No Report data found, so nothing to generate"
+			return
+		}
+		destinationPath.mkdirs()
+		getReportGenerator().generate(reportData, destinationPath)
 	}
 
 	void setProfileData(def profileData) {
@@ -114,12 +167,6 @@ class Report implements OutputAppender {
 		}
 
 		coverageLines << line;
-
-		/*if (line.equals("")) {
-			sourceFiles << currentSourceFile
-			currentSourceFile = new SourceFile()
-		}*/
-
 	}
 
 	def getSourceFiles() {
@@ -127,6 +174,10 @@ class Report implements OutputAppender {
 	}
 
 	def getReportData() {
-		return new ReportData(sourceFiles)
+		if (sourceFiles != null) {
+			return new ReportData(sourceFiles)
+		}
+		return null
 	}
+
 }

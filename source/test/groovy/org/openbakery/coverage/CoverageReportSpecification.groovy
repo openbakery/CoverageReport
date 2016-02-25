@@ -1,5 +1,6 @@
 package org.openbakery.coverage
 
+import org.apache.commons.io.FileUtils
 import spock.lang.Specification
 
 /**
@@ -7,6 +8,15 @@ import spock.lang.Specification
  */
 class CoverageReportSpecification extends Specification {
 
+	File tmp
+
+	def setup() {
+		tmp = new File(System.getProperty("java.io.tmpdir"), "coverage")
+	}
+
+	def tearDown() {
+		FileUtils.deleteDirectory(tmp)
+	}
 
 	def "main help"() {
 		when:
@@ -37,12 +47,12 @@ class CoverageReportSpecification extends Specification {
 		args << "*"
 
 		CoverageReport coverageReport = new CoverageReport(args as String[])
-		coverageReport.run()
+		coverageReport.processOptions()
 
 		then:
-		coverageReport.profData == "profData"
-		coverageReport.binary == "binary"
-		coverageReport.include == "*"
+		coverageReport.report.profileData.toString() == "profData"
+		coverageReport.report.binary.toString() == "binary"
+		coverageReport.report.include == "*"
 	}
 
 
@@ -57,11 +67,71 @@ class CoverageReportSpecification extends Specification {
 		args << "3"
 
 		CoverageReport coverageReport = new CoverageReport(args as String[])
-		coverageReport.run()
+		coverageReport.processOptions()
 
 		then:
-		coverageReport.profData == "1"
-		coverageReport.binary == "2"
-		coverageReport.include == "3"
+		coverageReport.report.profileData.toString() == "1"
+		coverageReport.report.binary.toString() == "2"
+		coverageReport.report.include == "3"
+	}
+
+
+	def "params type"() {
+		when:
+		def args = []
+		args << "--profdata"
+		args << "1"
+		args << "--binary"
+		args << "2"
+		args << "--include"
+		args << "3"
+		args << "--type"
+		args << "html"
+
+		CoverageReport coverageReport = new CoverageReport(args as String[])
+		coverageReport.processOptions()
+
+		then:
+		coverageReport.report.profileData.toString() == "1"
+		coverageReport.report.binary.toString() == "2"
+		coverageReport.report.include.toString() == "3"
+		coverageReport.report.type == Report.Type.HTML
+	}
+
+	def "params output directory"() {
+		when:
+		def args = []
+		args << "--profdata"
+		args << '1'
+		args << "--binary"
+		args << '2'
+		args << "--output"
+		args << "cov"
+
+		CoverageReport coverageReport = new CoverageReport(args as String[])
+		coverageReport.processOptions()
+
+		then:
+		coverageReport.report.profileData.toString() == "1"
+		coverageReport.report.binary.toString() == "2"
+		coverageReport.report.destinationPath.toString() == "cov"
+	}
+
+
+	def "create text report"() {
+		when:
+		def args = []
+		args << "--profdata"
+		args << 'source/test/resource/Coverage.profdata'
+		args << "--binary"
+		args << 'source/test/resource/Demo'
+		args << "--output"
+		args << tmp.absolutePath
+
+		CoverageReport coverageReport = new CoverageReport(args as String[])
+		coverageReport.processOptions()
+
+		then:
+		new File(tmp, "coverage.txt").exists()
 	}
 }

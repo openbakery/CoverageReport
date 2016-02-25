@@ -1,0 +1,21 @@
+<?xml version="1.0" ?>
+<!DOCTYPE coverage
+				SYSTEM 'http://cobertura.sourceforge.net/xml/coverage-03.dtd'>
+<coverage branch-rate="0.273895582329" line-rate="0.435326086957" timestamp="1456390013" version="CoverageReport-1.0">
+	<sources>
+		<source>.</source>
+	</sources>
+	<packages>
+		<package branch-rate="0.467532467532" complexity="0.0" line-rate="0.675090252708" name="Core.Source">
+			<classes>
+				<class branch-rate="0.414634146341" complexity="0.0" filename="Core/Source/OBAbstractTableViewController.m" line-rate="0.613821138211" name="OBAbstractTableViewController_m">
+					<methods/>
+					<lines>
+						<line branch="false" hits="204" number="19"/>
+					</lines>
+				</class>
+			</classes>
+		</package>
+	</packages>
+</coverage>
+

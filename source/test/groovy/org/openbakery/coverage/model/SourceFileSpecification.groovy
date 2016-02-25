@@ -1,4 +1,4 @@
-package org.openbakery.coverage
+package org.openbakery.coverage.model
 
 import org.apache.commons.io.FileUtils
 import spock.lang.Specification
@@ -26,7 +26,7 @@ class SourceFileSpecification extends Specification {
 
 	def "parse data"() {
 		when:
-		SourceFile data = new SourceFile(getReportLines());
+		SourceFile data = new SourceFile(getReportLines(), null);
 
 		then:
 		data.filename == "/Users/rene/workspace/openbakery/OBTableViewController/Core/Source/OBTableViewSection.m"
@@ -34,7 +34,7 @@ class SourceFileSpecification extends Specification {
 
 	def "parse lines"() {
 		when:
-		SourceFile data = new SourceFile(getReportLines());
+		SourceFile data = new SourceFile(getReportLines(), null);
 
 		then:
 		data.sourceLines.size == 91
@@ -43,7 +43,7 @@ class SourceFileSpecification extends Specification {
 
 	def "parse line 1"() {
 		when:
-		SourceFile data = new SourceFile(getReportLines());
+		SourceFile data = new SourceFile(getReportLines(), null);
 		SourceLine line = data.sourceLines.get(0)
 
 		then:
@@ -53,7 +53,7 @@ class SourceFileSpecification extends Specification {
 
 	def "parse line 21"() {
 		when:
-		SourceFile data = new SourceFile(getReportLines());
+		SourceFile data = new SourceFile(getReportLines(), null);
 		SourceLine line = data.sourceLines.get(20)
 
 		then:
@@ -65,7 +65,7 @@ class SourceFileSpecification extends Specification {
 
 	def "parse methods"() {
 		when:
-		SourceFile data = new SourceFile(getReportLines());
+		SourceFile data = new SourceFile(getReportLines(), null);
 
 		then:
 		data.filename.endsWith("OBTableViewSection.m")
@@ -77,7 +77,7 @@ class SourceFileSpecification extends Specification {
 
 	def "parse methods - isEqualToSection"() {
 		when:
-		SourceFile data = new SourceFile(getReportLines());
+		SourceFile data = new SourceFile(getReportLines(), null);
 
 		then:
 		data.filename.endsWith("OBTableViewSection.m")
@@ -90,7 +90,7 @@ class SourceFileSpecification extends Specification {
 
 	def "data all"() {
 		when:
-		SourceFile data = new SourceFile(getReportLines());
+		SourceFile data = new SourceFile(getReportLines(), null);
 
 		then:
 		data.filename.endsWith("OBTableViewSection.m")

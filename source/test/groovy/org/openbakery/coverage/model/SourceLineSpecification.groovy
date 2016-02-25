@@ -1,4 +1,4 @@
-package org.openbakery.coverage
+package org.openbakery.coverage.model
 
 import spock.lang.Specification
 

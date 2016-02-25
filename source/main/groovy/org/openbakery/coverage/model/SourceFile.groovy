@@ -1,4 +1,6 @@
-package org.openbakery.coverage
+package org.openbakery.coverage.model
+
+import org.apache.commons.io.FilenameUtils
 
 /**
  * Created by rene on 23.02.16.
@@ -9,14 +11,14 @@ class SourceFile {
 	List<SourceLine> sourceLines
 	List<Function> methods = []
 
-	SourceFile(List<String> lines) {
+	SourceFile(List<String> lines, String baseDirectory) {
 		def currentMethod = null
 		sourceLines = []
 
 		lines.eachWithIndex { value, index ->
 
 			if (index == 0) {
-				filename = parseFilename(value)
+				filename = parseFilename(value, baseDirectory)
 			} else {
 				SourceLine sourceLine = new SourceLine(value)
 				if (currentMethod == null && sourceLine.hits != SourceLine.NOT_A_NUMBER) {
@@ -34,11 +36,15 @@ class SourceFile {
 
 	}
 
-	String parseFilename(String line) {
+	String parseFilename(String line, String baseDirectory) {
 		if (line.endsWith(":")) {
-			return line[0..-2]
+			return line[0..-2]  - baseDirectory
 		}
-		return line
+		return line - baseDirectory
+	}
+
+	List<SourceLine>getSourceLinesCovered() {
+		return sourceLines.findAll { it.hits != SourceLine.NOT_A_NUMBER }
 	}
 
 	long getLinesCovered() {
@@ -57,6 +63,9 @@ class SourceFile {
 		return SourceLine.getCoverage(sourceLines)
 	}
 
+	String getName() {
+		return FilenameUtils.getName(filename)
+	}
 
 	static long getLinesCovered(List<SourceFile> sourceFiles) {
 		return sourceFiles.sum { it.getLinesCovered()}
@@ -80,4 +89,11 @@ class SourceFile {
 		return getLinesCovered(sourceFiles) / getLinesExecuted(sourceFiles)
 	}
 
+
+	@Override
+	public String toString() {
+		return "SourceFile{" +
+						"filename='" + filename + '\'' +
+						'}';
+	}
 }

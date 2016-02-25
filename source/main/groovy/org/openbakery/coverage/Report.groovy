@@ -1,6 +1,8 @@
 package org.openbakery.coverage
 
 import org.openbakery.coverage.command.CommandRunner
+import org.openbakery.coverage.report.ReportData
+import org.openbakery.coverage.model.SourceFile
 
 /**
  * Created by rene on 22.02.16.
@@ -11,6 +13,18 @@ class Report implements OutputAppender {
 	File binary
 	List<SourceFile> sourceFiles = []
 	List<String> coverageLines = []
+	String baseDirectory
+
+
+
+	void setBaseDirectory(String baseDirectory) {
+		this.baseDirectory = baseDirectory
+		if (this.baseDirectory != null && !this.baseDirectory.endsWith("/")) {
+			this.baseDirectory += "/"
+		}
+	}
+
+
 
 	boolean isOSX() {
 	    String osName = System.getProperty("os.name");
@@ -85,7 +99,7 @@ class Report implements OutputAppender {
 	void appendLine(String line) {
 
 		if (line.equals("")) {
-			sourceFiles << new SourceFile(coverageLines)
+			sourceFiles << new SourceFile(coverageLines, baseDirectory)
 			coverageLines = []
 			return;
 		}
@@ -106,5 +120,9 @@ class Report implements OutputAppender {
 
 	def getSourceFiles() {
 		return sourceFiles
+	}
+
+	def getReportData() {
+		return new ReportData(sourceFiles)
 	}
 }

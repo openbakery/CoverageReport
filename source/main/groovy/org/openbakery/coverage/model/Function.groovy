@@ -1,5 +1,4 @@
-package org.openbakery.coverage
-
+package org.openbakery.coverage.model
 /**
  * Created by rene on 24.02.16.
  */

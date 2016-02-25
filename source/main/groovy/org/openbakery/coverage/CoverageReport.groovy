@@ -15,7 +15,7 @@ class CoverageReport {
 		commandLine = new CliBuilder(usage: 'coverageReport [options]')
 		commandLine.with {
 			h longOpt: 'help', 'Show usage information'
-			p longOpt: 'profdata', args: 1, argName:'profdata', 'Profile data file'
+			p longOpt: 'profdata', args: 1, argName:'profdata', 'Profile model file'
 			b longOpt: 'binary', args: 1, argName:'binary', 'binary file'
 			i longOpt: 'include', args: 1, argName:'include', 'include file pattern'
 		}

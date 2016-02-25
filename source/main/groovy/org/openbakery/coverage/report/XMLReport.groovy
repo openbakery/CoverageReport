@@ -5,24 +5,22 @@ import com.github.mustachejava.Mustache
 import com.github.mustachejava.MustacheFactory
 
 /**
- * Created by rene on 24.02.16.
+ * Created by rene on 25.02.16.
  */
-class TextReport {
+class XMLReport {
 
 	void generate(ReportData reportData, File destinationDirectory) {
-
-		InputStream inputStream = TextReport.class.getResourceAsStream("/TextReport.template")
+		InputStream inputStream = TextReport.class.getResourceAsStream("/XMLReport.template")
 		Reader reader = new InputStreamReader(inputStream);
 
-		File destinationFile = new File(destinationDirectory, "coverage.txt")
+		File destinationFile = new File(destinationDirectory, "cobertura.xml")
 		Writer writer = new FileWriter(destinationFile);
 
 		MustacheFactory mustacheFactory = new DefaultMustacheFactory()
 		Mustache mustache = mustacheFactory.compile(reader, "template")
 
-		mustache.execute(writer, reportData.dataTruncated)
+		mustache.execute(writer, reportData.data)
 	  writer.flush()
 		reader.close()
-
 	}
 }

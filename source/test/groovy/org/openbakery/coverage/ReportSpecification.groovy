@@ -2,6 +2,8 @@ package org.openbakery.coverage
 
 import org.apache.commons.io.FileUtils
 import org.openbakery.coverage.command.CommandRunner
+import org.openbakery.coverage.report.ReportData
+import org.openbakery.coverage.model.SourceFile
 import spock.lang.Specification
 
 /**
@@ -210,5 +212,21 @@ class ReportSpecification extends Specification {
 		sourceFile.filename.endsWith("OBTableViewSection.m")
 		sourceFile.sourceLines.size() == 91
 		sourceFile.methods.size() == 7
+	}
+
+	def "report data from report"() {
+		given:
+		report.commandRunner = new CommandRunner();
+		report.profileData = 'source/test/resource/Coverage.profdata'
+		report.binary = 'source/test/resource/Demo'
+
+		when:
+		report.create()
+		ReportData reportData = report.getReportData()
+
+		then:
+		reportData != null
+		reportData.sourcePackages.size() == 12
+
 	}
 }

@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<!DOCTYPE coverage
+				SYSTEM 'http://cobertura.sourceforge.net/xml/coverage-03.dtd'>
+<coverage branch-rate="{{totalBrancheRate}}" line-rate="{{totalCoverage}}" timestamp="{{currentTime}}" version="CoverageReport-1.0">
+	<sources>
+		<source>.</source>
+	</sources>
+	<packages>
+	{{#sourcePackages}}
+		<package branch-rate="{{brancheRate}}" complexity="0.0" line-rate="{{coverage}}" name="{{name}}">
+			<classes>
+				{{#sourceFiles}}
+				<class branch-rate="0.0" complexity="0.0" filename="{{filename}}" line-rate="{{coverage}}" name="{{name}}">
+					<methods/>
+					<lines>
+						{{#sourceLinesCovered}}
+						<line branch="false" hits="{{hits}}" number="{{number}}"/>
+						{{/sourceLinesCovered}}
+					</lines>
+				</class>
+				{{/sourceFiles}}
+			</classes>
+		</package>
+	{{/sourcePackages}}
+	</packages>
+</coverage>

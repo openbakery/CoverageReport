@@ -5,7 +5,7 @@ import org.openbakery.coverage.model.SourceFile
 import org.openbakery.coverage.model.SourcePackage
 
 /**
- * Created by rene on 25.02.16.
+ * Created by René Pirringer
  */
 class ReportData {
 

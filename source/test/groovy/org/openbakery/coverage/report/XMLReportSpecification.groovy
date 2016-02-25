@@ -1,14 +1,13 @@
-package org.openbakery.coverage
+package org.openbakery.coverage.report
 
 import org.apache.commons.io.FileUtils
+import org.openbakery.coverage.Report
 import org.openbakery.coverage.command.CommandRunner
-import org.openbakery.coverage.report.ReportData
 import org.openbakery.coverage.model.SourceFile
-import org.openbakery.coverage.report.XMLReport
 import spock.lang.Specification
 
 /**
- * Created by rene on 25.02.16.
+ * Created by René Pirringer
  */
 class XMLReportSpecification extends Specification {
 

@@ -1,6 +1,7 @@
-package org.openbakery.coverage
+package org.openbakery.coverage.report
 
 import org.apache.commons.io.FileUtils
+import org.openbakery.coverage.Report
 import org.openbakery.coverage.command.CommandRunner
 import org.openbakery.coverage.report.ReportData
 import org.openbakery.coverage.model.SourceFile
@@ -8,7 +9,7 @@ import org.openbakery.coverage.report.TextReport
 import spock.lang.Specification
 
 /**
- * Created by rene on 24.02.16.
+ * Created by René Pirringer
  */
 class TextReportSpecification extends Specification {
 

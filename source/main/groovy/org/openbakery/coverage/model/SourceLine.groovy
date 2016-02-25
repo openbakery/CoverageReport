@@ -1,7 +1,7 @@
 package org.openbakery.coverage.model
 
 /**
- * Created by rene on 22.02.16.
+ * Created by René Pirringer
  */
 class SourceLine {
 

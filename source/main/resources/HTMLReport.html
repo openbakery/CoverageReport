@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+	<meta name="description" content=""/>
+	<meta name="author" content=""/>
+	<title>Coverage Report</title>
+	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+	<style>
+		.progress {
+		width: 12vw;
+		}
+		.number {
+		text-align:right;
+		width: 4vw;
+		}
+	</style>
+</head>
+
+<body>
+<div class="container">
+
+	<div class="starter-template">
+		<h1>Coverage Report</h1>
+	</div>
+
+	<table class="table table-striped">
+		<thead>
+		<tr>
+			<th>File</th>
+			<th>Coverage</th>
+			<th>Lines</th>
+			<th>Executed</th>
+			<th>Missing</th>
+		</tr>
+		</thead>
+		<tbody>
+
+		{{#sourceFiles}}
+		<tr>
+			<td>{{filename}}</td>
+			<td>
+				<div class="progress">
+					<div class="progress-bar" role="progressbar" aria-valuenow="{{coverageInPercent}}" aria-valuemin="0" aria-valuemax="100" style="width: {{coverageInPercent}}%;">
+						{{coverageInPercent}}%
+					</div>
+				</div>
+			</td>
+			<td class="number">{{linesNumber}}</td>
+			<td class="number">{{linesExecuted}}</td>
+			<td class="number">{{linesNotCovered}}</td>
+		</tr>
+		{{/sourceFiles}}
+
+		</tbody>
+
+	</table>
+
+</div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="bootstrap/js/bootstrap.min.js"></script>
+</body>
+</html>

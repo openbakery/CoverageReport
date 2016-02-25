@@ -5,13 +5,13 @@ import com.github.mustachejava.Mustache
 import com.github.mustachejava.MustacheFactory
 
 /**
- * Created by rene on 24.02.16.
+ * Created by René Pirringer
  */
 class TextReport {
 
 	void generate(ReportData reportData, File destinationDirectory) {
 
-		InputStream inputStream = TextReport.class.getResourceAsStream("/TextReport.template")
+		InputStream inputStream = TextReport.class.getResourceAsStream("/TextReport.txt")
 		Reader reader = new InputStreamReader(inputStream);
 
 		File destinationFile = new File(destinationDirectory, "coverage.txt")

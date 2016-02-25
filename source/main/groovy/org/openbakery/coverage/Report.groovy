@@ -5,7 +5,7 @@ import org.openbakery.coverage.report.ReportData
 import org.openbakery.coverage.model.SourceFile
 
 /**
- * Created by rene on 22.02.16.
+ * Created by René Pirringer
  */
 class Report implements OutputAppender {
 	CommandRunner commandRunner
@@ -62,6 +62,11 @@ class Report implements OutputAppender {
 			}
 		}
 
+		createCoverageData(sourceFile)
+
+	}
+
+	void createCoverageData(File sourceFile) {
 		def command = []
 
 		if (isOSX()) {
@@ -77,7 +82,6 @@ class Report implements OutputAppender {
 
 		commandRunner.runWithResult(command, this)
 	}
-
 
 	void setProfileData(def profileData) {
 		if (profileData instanceof File) {

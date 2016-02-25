@@ -5,7 +5,7 @@ import org.openbakery.coverage.command.CommandRunner
 import spock.lang.Specification
 
 /**
- * Created by rene on 25.02.16.
+ * Created by René Pirringer
  */
 class ReportDataSpecification extends Specification {
 

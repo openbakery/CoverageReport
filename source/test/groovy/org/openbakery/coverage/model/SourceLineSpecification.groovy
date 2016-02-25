@@ -3,7 +3,7 @@ package org.openbakery.coverage.model
 import spock.lang.Specification
 
 /**
- * Created by rene on 23.02.16.
+ * Created by René Pirringer
  */
 class SourceLineSpecification extends Specification {
 

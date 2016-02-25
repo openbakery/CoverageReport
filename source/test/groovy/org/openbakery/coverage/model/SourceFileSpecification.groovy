@@ -4,7 +4,7 @@ import org.apache.commons.io.FileUtils
 import spock.lang.Specification
 
 /**
- * Created by rene on 23.02.16.
+ * Created by René Pirringer
  */
 class SourceFileSpecification extends Specification {
 

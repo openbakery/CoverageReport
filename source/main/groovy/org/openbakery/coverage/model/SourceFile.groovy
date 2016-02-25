@@ -3,7 +3,7 @@ package org.openbakery.coverage.model
 import org.apache.commons.io.FilenameUtils
 
 /**
- * Created by rene on 23.02.16.
+ * Created by René Pirringer
  */
 class SourceFile {
 
@@ -47,6 +47,10 @@ class SourceFile {
 		return sourceLines.findAll { it.hits != SourceLine.NOT_A_NUMBER }
 	}
 
+	long getLinesNumber() {
+		return sourceLines.size()
+	}
+
 	long getLinesCovered() {
 		return sourceLines.count { it.hits > 0 }
 	}
@@ -62,6 +66,11 @@ class SourceFile {
 	double getCoverage() {
 		return SourceLine.getCoverage(sourceLines)
 	}
+
+	String getCoverageInPercent() {
+		return ((int)(getCoverage()*10000))/100
+	}
+
 
 	String getName() {
 		return FilenameUtils.getName(filename)

@@ -7,7 +7,7 @@ import org.openbakery.coverage.model.SourceFile
 import spock.lang.Specification
 
 /**
- * Created by rene on 22.02.16.
+ * Created by René Pirringer
  */
 class ReportSpecification extends Specification {
 

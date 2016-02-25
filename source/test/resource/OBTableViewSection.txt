@@ -1,7 +1,7 @@
 /Users/rene/workspace/openbakery/OBTableViewController/Core/Source/OBTableViewSection.m:
        |    1|//
        |    2|//
-       |    3|// Created by Rene Pirringer.
+       |    3|// Created by René Pirringer
        |    4|//
        |    5|//
        |    6|//

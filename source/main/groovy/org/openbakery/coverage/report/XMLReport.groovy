@@ -5,12 +5,12 @@ import com.github.mustachejava.Mustache
 import com.github.mustachejava.MustacheFactory
 
 /**
- * Created by rene on 25.02.16.
+ * Created by René Pirringer
  */
 class XMLReport {
 
 	void generate(ReportData reportData, File destinationDirectory) {
-		InputStream inputStream = TextReport.class.getResourceAsStream("/XMLReport.template")
+		InputStream inputStream = TextReport.class.getResourceAsStream("/XMLReport.xml")
 		Reader reader = new InputStreamReader(inputStream);
 
 		File destinationFile = new File(destinationDirectory, "cobertura.xml")

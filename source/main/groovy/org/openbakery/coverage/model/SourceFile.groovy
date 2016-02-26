@@ -68,7 +68,7 @@ class SourceFile {
 	}
 
 	String getCoverageInPercent() {
-		return ((int)(getCoverage()*10000))/100
+		return ((int)(getCoverage()*1000))/10
 	}
 
 
@@ -119,5 +119,16 @@ class SourceFile {
 		return "SourceFile{" +
 						"filename='" + filename + '\'' +
 						'}';
+	}
+
+
+	Coverage getCoverageRate() {
+		if (getCoverage() < 0.5) {
+			return Coverage.Poor
+		}
+		if (getCoverage() > 0.75) {
+			return Coverage.Good
+		}
+		return Coverage.Ok
 	}
 }

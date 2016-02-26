@@ -134,4 +134,27 @@ class CoverageReportSpecification extends Specification {
 		then:
 		new File(tmp, "coverage.txt").exists()
 	}
+
+	def "report base directory"() {
+		when:
+		CoverageReport coverageReport = new CoverageReport()
+		coverageReport.processOptions()
+
+		then:
+		coverageReport.report.baseDirectory == new File("").absolutePath + "/"
+
+	}
+
+	def "test exclude"() {
+		when:
+		def args = []
+		args << "--exclude"
+		args << "*"
+
+		CoverageReport coverageReport = new CoverageReport(args as String[])
+		coverageReport.processOptions()
+
+		then:
+		coverageReport.report.exclude == "*"
+	}
 }

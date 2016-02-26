@@ -283,4 +283,70 @@ class ReportSpecification extends Specification {
 		then:
 		report.commandRunner instanceof CommandRunner
 	}
+
+	def "default base directory"() {
+		when:
+		report = new Report()
+
+		then:
+		report.baseDirectory.endsWith("/")
+	}
+
+
+	def "include Core/Source"() {
+		given:
+		report.destinationPath = new File(tmp, "coverage")
+		report.commandRunner = new CommandRunner();
+		report.profileData = 'source/test/resource/Coverage.profdata'
+		report.binary = 'source/test/resource/Demo'
+		report.include = "Core/Source/.*"
+		report.baseDirectory = "/Users/rene/workspace/openbakery/OBTableViewController"
+
+		when:
+		report.create()
+
+		then:
+		report.reportData.sourceFiles.size() == 13
+		report.reportData.sourceFiles[0].filename.startsWith("Core/Source")
+		report.reportData.sourceFiles[12].filename.startsWith("Core/Source")
+	}
+
+	def "include Core/Source multiple"() {
+		given:
+		report.destinationPath = new File(tmp, "coverage")
+		report.commandRunner = new CommandRunner();
+		report.profileData = 'source/test/resource/Coverage.profdata'
+		report.binary = 'source/test/resource/Demo'
+		report.include = "Core/Source/.*|Demo/Source.*"
+		report.baseDirectory = "/Users/rene/workspace/openbakery/OBTableViewController"
+
+		when:
+		report.create()
+
+		then:
+		report.reportData.sourceFiles.size() == 17
+		report.reportData.sourceFiles[0].filename.startsWith("Core/Source")
+		report.reportData.sourceFiles[12].filename.startsWith("Core/Source")
+		report.reportData.sourceFiles[16].filename.startsWith("Demo/Source")
+	}
+
+	def "exclude Core/Source multiple"() {
+		given:
+		report.destinationPath = new File(tmp, "coverage")
+		report.commandRunner = new CommandRunner();
+		report.profileData = 'source/test/resource/Coverage.profdata'
+		report.binary = 'source/test/resource/Demo'
+		report.exclude = "/Applications/.*"
+		report.baseDirectory = "/Users/rene/workspace/openbakery/OBTableViewController"
+
+		when:
+		report.create()
+
+		then:
+		report.reportData.sourceFiles.size() == 19
+		report.reportData.sourceFiles[0].filename.startsWith("Core/Source")
+		report.reportData.sourceFiles[12].filename.startsWith("Core/Source")
+		report.reportData.sourceFiles[16].filename.startsWith("Demo/Source")
+	}
+
 }

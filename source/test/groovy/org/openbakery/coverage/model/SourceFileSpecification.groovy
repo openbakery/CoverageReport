@@ -98,7 +98,26 @@ class SourceFileSpecification extends Specification {
 		data.linesCovered == 39
 		data.linesNotCovered == 20
 		(data.coverage*1000).intValue() == 661
+		data.coverageInPercent == "66.1"
+		data.coverageRate == Coverage.Ok
 	}
 
+	def "coverate rate poor"() {
+		when:
+		SourceFile data = new SourceFile(getReportLines(), null);
+		data.sourceLines.each { it.hits = 0 }
+
+		then:
+		data.coverageRate == Coverage.Poor
+	}
+
+	def "coverate rate good"() {
+		when:
+		SourceFile data = new SourceFile(getReportLines(), null);
+		data.sourceLines.each { it.hits = 1 }
+
+		then:
+		data.coverageRate == Coverage.Good
+	}
 
 }

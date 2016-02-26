@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory
 class Report implements OutputAppender {
 	private static Logger logger = LoggerFactory.getLogger(Report.class)
 
+
 	static enum Type {
 		Text("text"),
 		HTML("html"),
@@ -46,10 +47,15 @@ class Report implements OutputAppender {
 	List<SourceFile> sourceFiles = []
 	List<String> coverageLines = []
 	String baseDirectory
-	File destinationPath = new File("coverage")
+	File destinationPath
 	Type type
 	String include
+	String exclude
 
+	Report() {
+		setBaseDirectory(new File("").absolutePath)
+		destinationPath = new File("coverage")
+	}
 
 	void setBaseDirectory(String baseDirectory) {
 		this.baseDirectory = baseDirectory
@@ -70,6 +76,7 @@ class Report implements OutputAppender {
 	}
 
 	def create(String source) {
+		logger.debug("create Report with: {}", this)
 
 		if (profileData == null) {
 			throw new IllegalArgumentException("No profileData specified")
@@ -178,11 +185,41 @@ class Report implements OutputAppender {
 		return sourceFiles
 	}
 
+	List<SourceFile>getFilteredSourceFiles() {
+		List<SourceFile> result = sourceFiles;
+
+		if (include != null) {
+			result = result.findAll {
+				it.filename.matches(include)
+			}
+		}
+		if (exclude != null) {
+			result = result.findAll {
+				!it.filename.matches(exclude)
+			}
+		}
+		return result
+	}
+
 	def getReportData() {
 		if (sourceFiles != null) {
-			return new ReportData(sourceFiles)
+			return new ReportData(getFilteredSourceFiles())
 		}
 		return null
 	}
+
+	@Override
+	public String toString() {
+		return "Report{" +
+						"profileData=" + profileData + "\n" +
+						", binary=" + binary + "\n" +
+						", baseDirectory='" + baseDirectory + '\'' + "\n" +
+						", destinationPath=" + destinationPath + "\n" +
+						", type=" + type + "\n" +
+						", include='" + include + '\'' + "\n" +
+						", exclude='" + exclude + '\'' + "\n" +
+						'}';
+	}
+
 
 }

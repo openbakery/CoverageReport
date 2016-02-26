@@ -16,6 +16,16 @@
 		text-align:right;
 		width: 4vw;
 		}
+		.Coverage-Rate-Ok {
+			.progress-bar-warning
+		}
+		.Coverage-Rate-Poor {
+			.progress-bar-danger
+		}
+		.Coverage-Rate-Good {
+			.progress-bar-success
+		}
+
 	</style>
 </head>
 
@@ -43,7 +53,7 @@
 			<td>{{filename}}</td>
 			<td>
 				<div class="progress">
-					<div class="progress-bar" role="progressbar" aria-valuenow="{{coverageInPercent}}" aria-valuemin="0" aria-valuemax="100" style="width: {{coverageInPercent}}%;">
+					<div class="progress-bar Coverage-Rate-{{coverageRate}}" role="progressbar" aria-valuenow="{{coverageInPercent}}" aria-valuemin="0" aria-valuemax="100" style="width: {{coverageInPercent}}%;">
 						{{coverageInPercent}}%
 					</div>
 				</div>
@@ -63,5 +73,12 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="bootstrap/js/bootstrap.min.js"></script>
+<script>
+	$(function(){
+  	$(".Coverage-Rate-Ok").addClass("progress-bar-warning");
+  	$(".Coverage-Rate-Poor").addClass("progress-bar-danger");
+  	$(".Coverage-Rate-Good").addClass("progress-bar-success");
+  });
+</script>
 </body>
 </html>

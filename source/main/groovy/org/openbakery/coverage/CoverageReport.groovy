@@ -19,7 +19,8 @@ class CoverageReport {
 			h longOpt: 'help', 'Show usage information'
 			p longOpt: 'profdata', args: 1, argName:'profdata', 'Profile model file'
 			b longOpt: 'binary', args: 1, argName:'binary', 'binary file'
-			i longOpt: 'include', args: 1, argName:'include', 'include file pattern'
+			i longOpt: 'include', args: 1, argName:'include', 'include as regex pattern'
+			e longOpt: 'exclude', args: 1, argName:'exclude', 'exclude as regex pattern'
 			t longOpt: 'type', args: 1, argName:'type', 'report type (text, html, xml)'
 			o longOpt: 'output', args: 1, argName:'output', 'output directory for the generated reports'
 			d longOpt: 'debug', 'enable debug log'
@@ -38,6 +39,10 @@ class CoverageReport {
 			report.include = options.i
 		}
 
+		if (options.exclude) {
+			report.exclude = options.e
+		}
+
 		if (options.output) {
 			report.destinationPath = new File(options.o)
 		}
@@ -52,9 +57,9 @@ class CoverageReport {
 
 		if (options.debug) {
 			setLoggingLevel(Level.DEBUG)
+		} else {
+			setLoggingLevel(Level.WARN)
 		}
-
-
 
 	}
 

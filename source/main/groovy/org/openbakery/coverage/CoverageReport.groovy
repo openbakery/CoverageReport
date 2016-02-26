@@ -17,13 +17,13 @@ class CoverageReport {
 		commandLine = new CliBuilder(usage: 'CoverageReport [options]')
 		commandLine.with {
 			h longOpt: 'help', 'Show usage information'
-			p longOpt: 'profdata', args: 1, argName:'profdata', 'Profile model file'
-			b longOpt: 'binary', args: 1, argName:'binary', 'binary file'
-			i longOpt: 'include', args: 1, argName:'include', 'include as regex pattern'
-			e longOpt: 'exclude', args: 1, argName:'exclude', 'exclude as regex pattern'
-			t longOpt: 'type', args: 1, argName:'type', 'report type (text, html, xml)'
-			o longOpt: 'output', args: 1, argName:'output', 'output directory for the generated reports'
-			d longOpt: 'debug', 'enable debug log'
+			p longOpt: 'profdata', args: 1, argName:'profdata', 'Instrumentation-based profile file (mandatory)'
+			b longOpt: 'binary', args: 1, argName:'binary', 'Binary file (mandatory)'
+			i longOpt: 'include', args: 1, argName:'include', 'Files to include as regex pattern'
+			e longOpt: 'exclude', args: 1, argName:'exclude', 'Files to exclude as regex pattern'
+			t longOpt: 'type', args: 1, argName:'type', 'Report type. Possible values: text, html or xml'
+			o longOpt: 'output', args: 1, argName:'output', 'Output directory for the generated reports'
+			d longOpt: 'debug', 'Enable debug log'
 
 		}
 		options = commandLine.parse(args)

@@ -6,6 +6,7 @@ sourceCompatibility = "1.6"
 targetCompatibility = "1.6" 
 
 mainClassName = 'org.openbakery.coverage.CoverageReport'
+version = '0.9'
 
 task wrapper(type: Wrapper) {
 	gradleVersion = '2.8'
@@ -40,18 +41,17 @@ dependencies {
 
 
 sourceSets {
-    main {
-        groovy {
-            srcDirs = ['source/main/groovy']
-        }
-				resources {
-					srcDirs = [ 'source/main/resources' ]
-				}
-    }
-
-    test {
-        groovy {
-            srcDirs = ['source/test/groovy']
-        }
-    }
+	main {
+		groovy {
+			srcDirs = ['source/main/groovy']
+		}
+		resources {
+			srcDirs = [ 'source/main/resources' ]
+		}
+	}
+	test {
+		groovy {
+	  	srcDirs = ['source/test/groovy']
+		}
+	}
 }

@@ -75,10 +75,17 @@ class HTMLReportSpecification extends Specification {
 		def html =  parser.parse(xmlFile)
 
 		then:
-		html.body.div.table.tbody.tr.size() == 1
-		html.body.div.table.tbody.tr[0].td[0].value()[0] == "Core/Source/OBTableViewSection.m"
-		html.body.div.table.tbody.tr[0].td[2].value()[0] == "91"
-		html.body.div.table.tbody.tr[0].td[3].value()[0] == "59"
-		html.body.div.table.tbody.tr[0].td[4].value()[0] == "20"
+		html.body.div.table[0].tbody.tr.size() == 2
+		html.body.div.table[0].tbody.tr[0].td[0].value()[0] == "All Files"
+		html.body.div.table[0].tbody.tr[0].td[2].value()[0] == "91"
+		html.body.div.table[0].tbody.tr[0].td[3].value()[0] == "59"
+		html.body.div.table[0].tbody.tr[0].td[4].value()[0] == "20"
+
+
+		html.body.div.table[1].tbody.tr.size() == 1
+		html.body.div.table[1].tbody.tr[0].td[0].value()[0] == "Core/Source/OBTableViewSection.m"
+		html.body.div.table[1].tbody.tr[0].td[2].value()[0] == "91"
+		html.body.div.table[1].tbody.tr[0].td[3].value()[0] == "59"
+		html.body.div.table[1].tbody.tr[0].td[4].value()[0] == "20"
 	}
 }

@@ -4,6 +4,8 @@ import org.apache.commons.io.FilenameUtils
 import org.openbakery.coverage.model.SourceFile
 import org.openbakery.coverage.model.SourcePackage
 
+import java.text.SimpleDateFormat
+
 /**
  * Created by René Pirringer
  */
@@ -56,24 +58,29 @@ class ReportData {
 
 		def data = [
 						sourceFiles: sourceFileData,
-						totalLines:  "${SourceFile.getTotalLines(sourceFiles)}".padLeft(8),
-						totalExecuted: "${SourceFile.getLinesExecuted(sourceFiles)}".padLeft(8),
+						totalLinesNumber:  "${SourceFile.getTotalLines(sourceFiles)}".padLeft(8),
+						totalLinesExecuted: "${SourceFile.getLinesExecuted(sourceFiles)}".padLeft(8),
 						totalCoverage: "${(SourceFile.getCoverage(sourceFiles)*100).intValue()}%".padLeft(8),
-						totalMissing: "${SourceFile.getLinesNotCovered(sourceFiles)}".padLeft(8)
+						totalLinesNotCovered: "${SourceFile.getLinesNotCovered(sourceFiles)}".padLeft(8)
 		]
 		return data
 	}
 
 	def getData() {
+		SimpleDateFormat dateFormat = new SimpleDateFormat();
+
 		return [
-						sourceFiles     : this.sourceFiles,
-						sourcePackages  : this.sourcePackages.values(),
-						totalBrancheRate: "0.0",
-						totalLines      : SourceFile.getTotalLines(this.sourceFiles),
-						totalExecuted   : SourceFile.getLinesExecuted(this.sourceFiles),
-						totalCoverage   : SourceFile.getCoverage(this.sourceFiles),
-						totalMissing    : SourceFile.getLinesNotCovered(this.sourceFiles),
-						currentTime     : System.currentTimeSeconds()
+						sourceFiles           : this.sourceFiles,
+						sourcePackages        : this.sourcePackages.values(),
+						totalBrancheRate      : "0.0",
+						totalLinesNumber      : SourceFile.getTotalLines(this.sourceFiles),
+						totalLinesExecuted    : SourceFile.getLinesExecuted(this.sourceFiles),
+						totalCoverage         : SourceFile.getCoverage(this.sourceFiles),
+						totalCoverageInPercent: "${((int) (SourceFile.getCoverage(this.sourceFiles) * 1000)) / 10}",
+						totalLinesNotCovered  : SourceFile.getLinesNotCovered(this.sourceFiles),
+						totalCoverageRate     : SourceFile.getCoverageRate(SourceFile.getCoverage(this.sourceFiles)),
+						currentTime           : System.currentTimeSeconds(),
+						currentDate						: dateFormat.format(new Date())
 		]
 	}
 

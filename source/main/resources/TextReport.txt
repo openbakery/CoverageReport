@@ -7,5 +7,5 @@ File                                        Lines     Exec   Cover  Missing
 {{filename}} {{lines}} {{exec}} {{cover}} {{missing}}
 {{/sourceFiles}}
 ------------------------------------------------------------------------------
-TOTAL                                    {{totalLines}} {{totalExecuted}} {{totalCoverage}} {{totalMissing}}
+TOTAL                                    {{totalLinesNumber}} {{totalLinesExecuted}} {{totalCoverage}} {{totalLinesNotCovered}}
 ------------------------------------------------------------------------------

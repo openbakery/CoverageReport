@@ -76,6 +76,10 @@ class SourceFile {
 		return FilenameUtils.getName(filename)
 	}
 
+	Coverage getCoverageRate() {
+		return getCoverageRate(getCoverage())
+	}
+
 	static long getLinesCovered(List<SourceFile> sourceFiles) {
 		if (sourceFiles == null || sourceFiles.size() == 0) {
 			return 0
@@ -114,6 +118,16 @@ class SourceFile {
 	}
 
 
+	static Coverage getCoverageRate(double coverage) {
+		if (coverage < 0.5) {
+			return Coverage.Poor
+		}
+		if (coverage > 0.75) {
+			return Coverage.Good
+		}
+		return Coverage.Ok
+	}
+
 	@Override
 	public String toString() {
 		return "SourceFile{" +
@@ -122,13 +136,4 @@ class SourceFile {
 	}
 
 
-	Coverage getCoverageRate() {
-		if (getCoverage() < 0.5) {
-			return Coverage.Poor
-		}
-		if (getCoverage() > 0.75) {
-			return Coverage.Good
-		}
-		return Coverage.Ok
-	}
 }

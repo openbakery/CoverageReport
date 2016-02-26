@@ -4,6 +4,8 @@ import org.openbakery.coverage.Report
 import org.openbakery.coverage.command.CommandRunner
 import spock.lang.Specification
 
+import java.text.SimpleDateFormat
+
 /**
  * Created by René Pirringer
  */
@@ -75,5 +77,19 @@ class ReportDataSpecification extends Specification {
 						"Pods/OBInjector/Core/Source/",
 		]
 
+	}
+
+
+	def "get total data"() {
+		when:
+		ReportData data = getReportData("/Users/rene/workspace/openbakery/OBTableViewController")
+		SimpleDateFormat dateFormat = new SimpleDateFormat();
+
+
+		then:
+		data.data.totalLinesNumber == 4831
+		data.data.totalCoverageInPercent == "58.4"
+		data.data.totalCoverageRate.toString() == "Ok"
+		data.data.currentDate.toString() == dateFormat.format(new Date())
 	}
 }

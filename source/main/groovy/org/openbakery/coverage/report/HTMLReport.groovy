@@ -8,12 +8,18 @@ import org.slf4j.LoggerFactory
 
 /**
  * Created by René Pirringer
+ * Class that generates the html report
  */
 class HTMLReport {
 	private static Logger logger = LoggerFactory.getLogger(HTMLReport.class)
 
 	String bootstrap = 'https://github.com/twbs/bootstrap/releases/download/v3.3.6/bootstrap-3.3.6-dist.zip'
 
+	/**
+	 * Generates the HTML report using the specified report data and stores it into the specified destinationDirectory
+	 * @param reportData
+	 * @param destinationDirectory where the generated report should be stored
+	 */
 	void generate(ReportData reportData, File destinationDirectory) {
 
 		downloadBootstrap(destinationDirectory)

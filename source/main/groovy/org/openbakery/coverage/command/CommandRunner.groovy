@@ -5,7 +5,9 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.apache.commons.collections.buffer.CircularFifoBuffer
 
-
+/**
+ * The CommandRunner is a helper class to execute commands and get the result
+ */
 class CommandRunner {
 
 	private static Logger logger = LoggerFactory.getLogger(CommandRunner.class)

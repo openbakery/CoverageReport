@@ -142,54 +142,25 @@ class ReportSpecification extends Specification {
 
 	}
 
-	def "report for test files"() {
-		def commandList
-		def expectedCommandList
-		def currentDirectory = new File("")
 
-		when:
-		report.profileData = 'source/test/resource/Coverage.profdata'
-		report.binary = 'source/test/resource/Demo'
-		report.create()
-
-		then:
-		1 * commandRunner.runWithResult(_, _) >> { arguments -> commandList = arguments[0] }
-
-		interaction {
-			expectedCommandList = [
-										"xcrun",
-										"llvm-cov",
-										"show",
-										"-instr-profile=" + currentDirectory.absolutePath + "/source/test/resource/Coverage.profdata",
-										currentDirectory.absolutePath + "/source/test/resource/Demo"]
-		}
-		commandList == expectedCommandList
-
+	def createReport() {
+		List<String> data = FileUtils.readLines(new File("source/test/resource/Coverage.profdata.txt"));
+		data.each {report.appendLine(it) }
 	}
 
 
 
 	def "report for profdata"() {
-		given:
-		report.commandRunner = new CommandRunner();
-		report.profileData = 'source/test/resource/Coverage.profdata'
-		report.binary = 'source/test/resource/Demo'
-
 		when:
-		report.create()
+		createReport()
 
 		then:
 		report.sourceFiles.size == 26;
 	}
 
 	def "report for profdata last source file"() {
-		given:
-		report.commandRunner = new CommandRunner();
-		report.profileData = 'source/test/resource/Coverage.profdata'
-		report.binary = 'source/test/resource/Demo'
-
 		when:
-		report.create()
+		createReport()
 		SourceFile sourceFile = report.sourceFiles.last()
 
 		then:
@@ -200,13 +171,8 @@ class ReportSpecification extends Specification {
 
 
 	def "report for profdata for OBTableViewSection"() {
-		given:
-		report.commandRunner = new CommandRunner();
-		report.profileData = 'source/test/resource/Coverage.profdata'
-		report.binary = 'source/test/resource/Demo'
-
 		when:
-		report.create()
+		createReport()
 		SourceFile sourceFile = report.sourceFiles.get(19)
 
 		then:
@@ -217,13 +183,8 @@ class ReportSpecification extends Specification {
 	}
 
 	def "report data from report"() {
-		given:
-		report.commandRunner = new CommandRunner();
-		report.profileData = 'source/test/resource/Coverage.profdata'
-		report.binary = 'source/test/resource/Demo'
-
 		when:
-		report.create()
+		createReport()
 		ReportData reportData = report.getReportData()
 
 		then:
@@ -239,12 +200,9 @@ class ReportSpecification extends Specification {
 	def "default report is txt"() {
 		given:
 		report.destinationPath = new File(tmp, "coverage")
-		report.commandRunner = new CommandRunner();
-		report.profileData = 'source/test/resource/Coverage.profdata'
-		report.binary = 'source/test/resource/Demo'
 
 		when:
-		report.create()
+		createReport()
 
 		then:
 		report.destinationPath.exists()
@@ -253,7 +211,6 @@ class ReportSpecification extends Specification {
 
 
 	def "html report"() {
-
 		given:
 		report.type = Report.Type.HTML
 
@@ -296,14 +253,11 @@ class ReportSpecification extends Specification {
 	def "include Core/Source"() {
 		given:
 		report.destinationPath = new File(tmp, "coverage")
-		report.commandRunner = new CommandRunner();
-		report.profileData = 'source/test/resource/Coverage.profdata'
-		report.binary = 'source/test/resource/Demo'
 		report.include = "Core/Source/.*"
 		report.baseDirectory = "/Users/rene/workspace/openbakery/OBTableViewController"
 
 		when:
-		report.create()
+		createReport()
 
 		then:
 		report.reportData.sourceFiles.size() == 13
@@ -314,14 +268,11 @@ class ReportSpecification extends Specification {
 	def "include Core/Source multiple"() {
 		given:
 		report.destinationPath = new File(tmp, "coverage")
-		report.commandRunner = new CommandRunner();
-		report.profileData = 'source/test/resource/Coverage.profdata'
-		report.binary = 'source/test/resource/Demo'
 		report.include = "Core/Source/.*|Demo/Source.*"
 		report.baseDirectory = "/Users/rene/workspace/openbakery/OBTableViewController"
 
 		when:
-		report.create()
+		createReport()
 
 		then:
 		report.reportData.sourceFiles.size() == 17
@@ -334,13 +285,11 @@ class ReportSpecification extends Specification {
 		given:
 		report.destinationPath = new File(tmp, "coverage")
 		report.commandRunner = new CommandRunner();
-		report.profileData = 'source/test/resource/Coverage.profdata'
-		report.binary = 'source/test/resource/Demo'
 		report.exclude = "/Applications/.*"
 		report.baseDirectory = "/Users/rene/workspace/openbakery/OBTableViewController"
 
 		when:
-		report.create()
+		createReport()
 
 		then:
 		report.reportData.sourceFiles.size() == 19

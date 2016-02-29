@@ -119,20 +119,21 @@ class CoverageReportSpecification extends Specification {
 
 
 	def "create text report"() {
+		Report report = Mock(Report)
 		when:
 		def args = []
+
 		args << "--profdata"
-		args << 'source/test/resource/Coverage.profdata'
+		args << "Coverage.profdata"
 		args << "--binary"
-		args << 'source/test/resource/Demo'
-		args << "--output"
-		args << tmp.absolutePath
+		args << "Demo"
 
 		CoverageReport coverageReport = new CoverageReport(args as String[])
-		coverageReport.processOptions()
+		coverageReport.report = report
+		coverageReport.run()
 
 		then:
-		new File(tmp, "coverage.txt").exists()
+		1 * report.create()
 	}
 
 	def "report base directory"() {

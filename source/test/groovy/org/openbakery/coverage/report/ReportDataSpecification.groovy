@@ -1,5 +1,6 @@
 package org.openbakery.coverage.report
 
+import org.apache.commons.io.FileUtils
 import org.openbakery.coverage.Report
 import org.openbakery.coverage.command.CommandRunner
 import spock.lang.Specification
@@ -15,10 +16,8 @@ class ReportDataSpecification extends Specification {
 	ReportData getReportData(String baseDirectory) {
 		Report report = new Report()
 		report.baseDirectory = baseDirectory
-		report.commandRunner = new CommandRunner();
-		report.profileData = 'source/test/resource/Coverage.profdata'
-		report.binary = 'source/test/resource/Demo'
-		report.create()
+		List<String> data = FileUtils.readLines(new File("source/test/resource/Coverage.profdata.txt"));
+		data.each {report.appendLine(it) }
 		return report.getReportData()
 	}
 

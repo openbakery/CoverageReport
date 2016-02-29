@@ -2,6 +2,7 @@ package org.openbakery.coverage.command
 
 /**
  * Created by René Pirringer
+ * The CommandRunnerException is thrown by the CommandRunner if something went wrong
  */
 class CommandRunnerException extends IllegalStateException {
 

@@ -138,11 +138,8 @@ class XMLReportSpecification extends Specification {
 	def "test xml long report"() {
 		given:
 		Report report = new Report()
-		report.commandRunner = new CommandRunner();
-		report.profileData = 'source/test/resource/Coverage.profdata'
-		report.binary = 'source/test/resource/Demo'
-		report.create()
-
+		List<String> lines = FileUtils.readLines(new File("source/test/resource/Coverage.profdata.txt"));
+		lines.each {report.appendLine(it) }
 		ReportData data = report.getReportData()
 
 		when:

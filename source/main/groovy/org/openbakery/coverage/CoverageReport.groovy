@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Created by René Pirringer
+ * The CoverageReport main class that is used for the command line usage of this tool
  */
 class CoverageReport {
 

@@ -65,10 +65,8 @@ class TextReportSpecification extends Specification {
 	def "generated report with many data"() {
 		given:
 		Report report = new Report()
-		report.commandRunner = new CommandRunner();
-		report.profileData = 'source/test/resource/Coverage.profdata'
-		report.binary = 'source/test/resource/Demo'
-		report.create()
+		List<String> data = FileUtils.readLines(new File("source/test/resource/Coverage.profdata.txt"));
+		data.each {report.appendLine(it) }
 
 		when:
 		textReport.generate(report.getReportData(), tmp)

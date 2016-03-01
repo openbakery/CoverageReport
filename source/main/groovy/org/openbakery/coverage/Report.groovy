@@ -91,7 +91,7 @@ class Report implements OutputAppender {
 		}
 
 		if (!binary.exists()) {
-			throw new IllegalArgumentException("Binary not found: " + profileData)
+			throw new IllegalArgumentException("Binary not found: " + binary)
 		}
 
 

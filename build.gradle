@@ -1,12 +1,16 @@
 apply plugin: 'groovy'
 apply plugin: 'maven'
 apply plugin: 'application'
+apply plugin: 'signing'
 
 sourceCompatibility = "1.6"
 targetCompatibility = "1.6" 
 
 mainClassName = 'org.openbakery.coverage.CoverageReport'
 version = '0.9'
+
+group = "org.openbakery.coverage"
+archivesBaseName = "CoverageReport"
 
 task wrapper(type: Wrapper) {
 	gradleVersion = '2.8'
@@ -23,14 +27,13 @@ repositories {
 
 dependencies {
 	compile localGroovy()
-	compile 'commons-cli:commons-cli:1.3.+'
-	compile 'ch.qos.logback:logback-core:1.1.+'
+	compile 'commons-cli:commons-cli:1.3.1'
+	compile 'ch.qos.logback:logback-core:1.1.5'
 	compile 'ch.qos.logback:logback-classic:1.1.5'
-	compile 'org.slf4j:slf4j-api:1.7.+'
 	compile 'commons-io:commons-io:1.4'
-	compile 'commons-collections:commons-collections:3.2.+'
+	compile 'commons-collections:commons-collections:3.2.2'
 	compile "com.github.spullara.mustache.java:compiler:0.8.18"
-	compile 'org.apache.ant:ant:1.9.+'
+	compile 'org.apache.ant:ant:1.9.6'
 	testCompile 'junit:junit:4.12'
 	testCompile 'org.hamcrest:hamcrest-all:1.3'
 	testCompile 'org.codehaus.groovy:groovy-all:2.4.4'
@@ -52,6 +55,83 @@ sourceSets {
 	test {
 		groovy {
 	  	srcDirs = ['source/test/groovy']
+		}
+	}
+}
+
+task sourcesJar(type: Jar) {
+	classifier = 'sources'
+	from sourceSets.main.allSource
+}
+
+task javadocJar(type: Jar) {
+	classifier = 'javadoc'
+	from javadoc
+}
+
+artifacts {
+    archives javadocJar, sourcesJar
+}
+
+signing {
+	sign configurations.archives
+}
+
+gradle.taskGraph.whenReady { taskGraph ->
+	if (taskGraph.allTasks.any { it instanceof Sign }) {
+		Console console = System.console()
+		console.printf "\n\nWe have to sign some things in this build." +
+		               "\n\nPlease enter your signing details.\n\n"
+		
+		def password = console.readPassword("PGP Private Key Password: ")
+		allprojects { ext."signing.password" = password }
+	}
+}
+
+def ossrhUsername = hasProperty('ossrhUsername') ? ossrhUsername : ''
+def ossrhPassword = hasProperty('ossrhPassword') ? ossrhPassword : ''
+
+
+uploadArchives {
+	repositories {
+		mavenDeployer {
+			beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+			repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+				authentication(userName: ossrhUsername, password: ossrhPassword)
+			}
+
+			snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
+				authentication(userName: ossrhUsername, password: ossrhPassword)
+			}
+
+			pom.project {
+				name 'CoverageReport'
+				packaging 'jar'
+				description 'CoverageReport convert the llvm profdata code coverage to text, HTML or XML'
+				url 'https://github.com/openbakery/CoverageReport'
+
+				scm {
+					connection 'scm:git:https://github.com/openbakery/CoverageReport.git'
+					developerConnection 'scm:https://github.com/openbakery/CoverageReport.git'
+					url 'https://github.com/openbakery/CoverageReport'
+				}
+
+				licenses {
+					license {
+						name 'BSD-3'
+						url 'https://raw.githubusercontent.com/openbakery/CoverageReport/master/LICENSE'
+					}
+				}
+
+				developers {
+					developer {
+						id 'renep'
+						name 'René Pirringer'
+						email 'rene@openbakery.org'
+					}
+				}
+			}
 		}
 	}
 }

@@ -75,7 +75,7 @@ class TextReportSpecification extends Specification {
 		then:
 		reportData.size() == 34
 		reportData.get(30) == '...ctor/Core/Source/OBPropertyInjector.m      175      112       0%      112'
-		reportData.get(32) == 'TOTAL                                        4831     1329      58%      552'
+		reportData.get(32) == 'TOTAL                                        4155     1327      58%      550'
 
 	}
 

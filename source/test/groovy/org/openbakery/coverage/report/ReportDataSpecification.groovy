@@ -86,8 +86,8 @@ class ReportDataSpecification extends Specification {
 
 
 		then:
-		data.data.totalLinesNumber == 4831
-		data.data.totalCoverageInPercent == "58.4"
+		data.data.totalLinesNumber == 4155
+		data.data.totalCoverageInPercent == "58.5"
 		data.data.totalCoverageRate.toString() == "Ok"
 		data.data.currentDate.toString() == dateFormat.format(new Date())
 	}

@@ -17,6 +17,11 @@ class SourceFile {
 
 		lines.eachWithIndex { value, index ->
 
+			if (value.startsWith("  ------------------") || value.startsWith("  |")) {
+				return;
+			}
+
+
 			if (index == 0) {
 				filename = parseFilename(value, baseDirectory)
 			} else {

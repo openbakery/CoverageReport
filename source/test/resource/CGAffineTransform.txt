@@ -1,0 +1,206 @@
+/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator9.2.sdk/System/Library/Frameworks/CoreGraphics.framework/Headers/CGAffineTransform.h:
+       |    1|/* CoreGraphics - CGAffineTransform.h
+       |    2|   Copyright (c) 1998-2011 Apple Inc.
+       |    3|   All rights reserved. */
+       |    4|
+       |    5|#ifndef CGAFFINETRANSFORM_H_
+       |    6|#define CGAFFINETRANSFORM_H_
+       |    7|
+       |    8|typedef struct CGAffineTransform CGAffineTransform;
+       |    9|
+       |   10|#include <CoreGraphics/CGBase.h>
+       |   11|#include <CoreGraphics/CGGeometry.h>
+       |   12|
+       |   13|CF_IMPLICIT_BRIDGING_ENABLED
+       |   14|
+       |   15|struct CGAffineTransform {
+       |   16|  CGFloat a, b, c, d;
+       |   17|  CGFloat tx, ty;
+       |   18|};
+       |   19|
+       |   20|/* The identity transform: [ 1 0 0 1 0 0 ]. */
+       |   21|
+       |   22|CG_EXTERN const CGAffineTransform CGAffineTransformIdentity
+       |   23|  CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
+       |   24|
+       |   25|/* Return the transform [ a b c d tx ty ]. */
+       |   26|
+       |   27|CG_EXTERN CGAffineTransform CGAffineTransformMake(CGFloat a, CGFloat b,
+       |   28|  CGFloat c, CGFloat d, CGFloat tx, CGFloat ty)
+       |   29|  CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
+       |   30|
+       |   31|/* Return a transform which translates by `(tx, ty)':
+       |   32|     t' = [ 1 0 0 1 tx ty ] */
+       |   33|
+       |   34|CG_EXTERN CGAffineTransform CGAffineTransformMakeTranslation(CGFloat tx,
+       |   35|  CGFloat ty) CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
+       |   36|
+       |   37|/* Return a transform which scales by `(sx, sy)':
+       |   38|     t' = [ sx 0 0 sy 0 0 ] */
+       |   39|
+       |   40|CG_EXTERN CGAffineTransform CGAffineTransformMakeScale(CGFloat sx, CGFloat sy)
+       |   41|  CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
+       |   42|
+       |   43|/* Return a transform which rotates by `angle' radians:
+       |   44|     t' = [ cos(angle) sin(angle) -sin(angle) cos(angle) 0 0 ] */
+       |   45|
+  ------------------
+  | -[UIImage(Color) overlayWithColor:]:
+  |  1.55k|   19|
+  |  1.55k|   20|/* The identity transform: [ 1 0 0 1 0 0 ]. */
+  |  1.55k|   21|
+  |  1.55k|   22|CG_EXTERN const CGAffineTransform CGAffineTransformIdentity
+  |  1.55k|   23|  CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
+  |  1.55k|   24|
+  |  1.55k|   25|/* Return the transform [ a b c d tx ty ]. */
+  |  1.55k|   26|
+  |      0|   27|CG_EXTERN CGAffineTransform CGAffineTransformMake(CGFloat a, CGFloat b,
+  |      0|   28|  CGFloat c, CGFloat d, CGFloat tx, CGFloat ty)
+  |      0|   29|  CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
+  |  1.55k|   30|
+  |  1.55k|   31|/* Return a transform which translates by `(tx, ty)':
+  |  1.55k|   32|     t' = [ 1 0 0 1 tx ty ] */
+  |  1.55k|   33|
+  |  1.55k|   34|CG_EXTERN CGAffineTransform CGAffineTransformMakeTranslation(CGFloat tx,
+  |  1.55k|   35|  CGFloat ty) CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
+  |  1.55k|   36|
+  |  1.55k|   37|/* Return a transform which scales by `(sx, sy)':
+  |  1.55k|   38|     t' = [ sx 0 0 sy 0 0 ] */
+  |  1.55k|   39|
+  |  1.55k|   40|CG_EXTERN CGAffineTransform CGAffineTransformMakeScale(CGFloat sx, CGFloat sy)
+  |  1.55k|   41|  CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
+  |  1.55k|   42|
+  |  1.55k|   43|/* Return a transform which rotates by `angle' radians:
+  |  1.55k|   44|     t' = [ cos(angle) sin(angle) -sin(angle) cos(angle) 0 0 ] */
+  |  1.55k|   45|
+  ------------------
+       |   46|CG_EXTERN CGAffineTransform CGAffineTransformMakeRotation(CGFloat angle)
+       |   47|  CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
+       |   48|
+       |   49|/* Return true if `t' is the identity transform, false otherwise. */
+       |   50|
+       |   51|CG_EXTERN bool CGAffineTransformIsIdentity(CGAffineTransform t)
+       |   52|  CG_AVAILABLE_STARTING(__MAC_10_4, __IPHONE_2_0);
+       |   53|
+       |   54|/* Translate `t' by `(tx, ty)' and return the result:
+       |   55|     t' = [ 1 0 0 1 tx ty ] * t */
+       |   56|
+       |   57|CG_EXTERN CGAffineTransform CGAffineTransformTranslate(CGAffineTransform t,
+       |   58|  CGFloat tx, CGFloat ty) CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
+       |   59|
+       |   60|/* Scale `t' by `(sx, sy)' and return the result:
+       |   61|     t' = [ sx 0 0 sy 0 0 ] * t */
+       |   62|
+  ------------------
+  | -[UIImage(DTFoundation) imageMaskedAndTintedWithColor:]:
+  |      0|   38|     t' = [ sx 0 0 sy 0 0 ] */
+  |      0|   39|
+  |      0|   40|CG_EXTERN CGAffineTransform CGAffineTransformMakeScale(CGFloat sx, CGFloat sy)
+  |      0|   41|  CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
+  |      0|   42|
+  |      0|   43|/* Return a transform which rotates by `angle' radians:
+  |      0|   44|     t' = [ cos(angle) sin(angle) -sin(angle) cos(angle) 0 0 ] */
+  |      0|   45|
+  |      0|   46|CG_EXTERN CGAffineTransform CGAffineTransformMakeRotation(CGFloat angle)
+  |      0|   47|  CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
+  |      0|   48|
+  |      0|   49|/* Return true if `t' is the identity transform, false otherwise. */
+  |      0|   50|
+  |      0|   51|CG_EXTERN bool CGAffineTransformIsIdentity(CGAffineTransform t)
+  |      0|   52|  CG_AVAILABLE_STARTING(__MAC_10_4, __IPHONE_2_0);
+  |      0|   53|
+  |      0|   54|/* Translate `t' by `(tx, ty)' and return the result:
+  |      0|   55|     t' = [ 1 0 0 1 tx ty ] * t */
+  |      0|   56|
+  |      0|   57|CG_EXTERN CGAffineTransform CGAffineTransformTranslate(CGAffineTransform t,
+  |      0|   58|  CGFloat tx, CGFloat ty) CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
+  |      0|   59|
+  |      0|   60|/* Scale `t' by `(sx, sy)' and return the result:
+  |      0|   61|     t' = [ sx 0 0 sy 0 0 ] * t */
+  |      0|   62|
+  ------------------
+       |   63|CG_EXTERN CGAffineTransform CGAffineTransformScale(CGAffineTransform t,
+       |   64|  CGFloat sx, CGFloat sy) CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
+       |   65|
+       |   66|/* Rotate `t' by `angle' radians and return the result:
+       |   67|     t' =  [ cos(angle) sin(angle) -sin(angle) cos(angle) 0 0 ] * t */
+       |   68|
+       |   69|CG_EXTERN CGAffineTransform CGAffineTransformRotate(CGAffineTransform t,
+       |   70|  CGFloat angle) CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
+       |   71|
+       |   72|/* Invert `t' and return the result. If `t' has zero determinant, then `t'
+       |   73|   is returned unchanged. */
+       |   74|
+       |   75|CG_EXTERN CGAffineTransform CGAffineTransformInvert(CGAffineTransform t)
+       |   76|  CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
+       |   77|
+       |   78|/* Concatenate `t2' to `t1' and return the result:
+       |   79|     t' = t1 * t2 */
+       |   80|
+       |   81|CG_EXTERN CGAffineTransform CGAffineTransformConcat(CGAffineTransform t1,
+       |   82|  CGAffineTransform t2) CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
+       |   83|
+       |   84|/* Return true if `t1' and `t2' are equal, false otherwise. */
+       |   85|
+       |   86|CG_EXTERN bool CGAffineTransformEqualToTransform(CGAffineTransform t1,
+       |   87|  CGAffineTransform t2) CG_AVAILABLE_STARTING(__MAC_10_4, __IPHONE_2_0);
+       |   88|
+       |   89|/* Transform `point' by `t' and return the result:
+       |   90|     p' = p * t
+       |   91|   where p = [ x y 1 ]. */
+       |   92|
+       |   93|CG_EXTERN CGPoint CGPointApplyAffineTransform(CGPoint point,
+       |   94|  CGAffineTransform t) CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
+       |   95|
+       |   96|/* Transform `size' by `t' and return the result:
+       |   97|     s' = s * t
+       |   98|   where s = [ width height 0 ]. */
+       |   99|
+       |  100|CG_EXTERN CGSize CGSizeApplyAffineTransform(CGSize size, CGAffineTransform t)
+       |  101|  CG_AVAILABLE_STARTING(__MAC_10_0, __IPHONE_2_0);
+       |  102|
+       |  103|/* Transform `rect' by `t' and return the result. Since affine transforms do
+       |  104|   not preserve rectangles in general, this function returns the smallest
+       |  105|   rectangle which contains the transformed corner points of `rect'. If `t'
+       |  106|   consists solely of scales, flips and translations, then the returned
+       |  107|   rectangle coincides with the rectangle constructed from the four
+       |  108|   transformed corners. */
+       |  109|
+       |  110|CG_EXTERN CGRect CGRectApplyAffineTransform(CGRect rect, CGAffineTransform t)
+       |  111|  CG_AVAILABLE_STARTING(__MAC_10_4, __IPHONE_2_0);
+       |  112|
+       |  113|/*** Definitions of inline functions. ***/
+       |  114|
+       |  115|CG_INLINE CGAffineTransform
+       |  116|__CGAffineTransformMake(CGFloat a, CGFloat b, CGFloat c, CGFloat d,
+       |  117|  CGFloat tx, CGFloat ty)
+       |  118|{
+       |  119|  CGAffineTransform t;
+       |  120|  t.a = a; t.b = b; t.c = c; t.d = d; t.tx = tx; t.ty = ty;
+       |  121|  return t;
+       |  122|}
+  1.55k|  123|#define CGAffineTransformMake __CGAffineTransformMake
+       |  124|
+       |  125|CG_INLINE CGPoint
+       |  126|__CGPointApplyAffineTransform(CGPoint point, CGAffineTransform t)
+       |  127|{
+       |  128|  CGPoint p;
+       |  129|  p.x = (CGFloat)((double)t.a * point.x + (double)t.c * point.y + t.tx);
+       |  130|  p.y = (CGFloat)((double)t.b * point.x + (double)t.d * point.y + t.ty);
+       |  131|  return p;
+       |  132|}
+       |  133|#define CGPointApplyAffineTransform __CGPointApplyAffineTransform
+       |  134|
+       |  135|CG_INLINE CGSize
+       |  136|__CGSizeApplyAffineTransform(CGSize size, CGAffineTransform t)
+       |  137|{
+       |  138|  CGSize s;
+       |  139|  s.width = (CGFloat)((double)t.a * size.width + (double)t.c * size.height);
+       |  140|  s.height = (CGFloat)((double)t.b * size.width + (double)t.d * size.height);
+       |  141|  return s;
+       |  142|}
+       |  143|#define CGSizeApplyAffineTransform __CGSizeApplyAffineTransform
+       |  144|
+       |  145|CF_IMPLICIT_BRIDGING_DISABLED
+       |  146|
+       |  147|#endif /* CGAFFINETRANSFORM_H_ */

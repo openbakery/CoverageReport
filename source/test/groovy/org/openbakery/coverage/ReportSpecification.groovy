@@ -203,6 +203,7 @@ class ReportSpecification extends Specification {
 
 		when:
 		createReport()
+		report.createReport()
 
 		then:
 		report.destinationPath.exists()

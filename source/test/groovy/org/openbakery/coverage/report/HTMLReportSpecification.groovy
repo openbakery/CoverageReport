@@ -88,4 +88,38 @@ class HTMLReportSpecification extends Specification {
 		html.body.div.table[1].tbody.tr[0].td[3].value()[0] == "59"
 		html.body.div.table[1].tbody.tr[0].td[4].value()[0] == "20"
 	}
+
+
+	def "generated report exists: OBTableViewSection "() {
+		given:
+		htmlReport.bootstrap = null
+		ReportData data = getReportData()
+
+		when:
+		htmlReport.generate(data, tmp)
+
+		then:
+		new File(tmp, "Core_Source_OBTableViewSection.html").exists()
+	}
+
+	def "generated report contents: OBTableViewSection "() {
+		given:
+		htmlReport.bootstrap = null
+		ReportData data = getReportData()
+
+		when:
+		htmlReport.generate(data, tmp)
+		File xmlFile = new File(tmp, "Core_Source_OBTableViewSection.html")
+		def parser= getXmlParser()
+		def html =  parser.parse(xmlFile)
+
+		then:
+		html.body.div.table[0].tbody.tr.size() == 91
+		html.body.div.table[0].tbody.tr[0].td[0].value()[0] == null
+		html.body.div.table[0].tbody.tr[0].td[0].attributes()["class"] == "hits"
+		html.body.div.table[0].tbody.tr[21].attributes()["class"] == "covered"
+		html.body.div.table[0].tbody.tr[50].attributes()["class"] == "missing"
+		//html.body.div.table[0].tbody.tr[0].td[0].value()[0] == ""
+		//SourceFile.getCoverageRate(SourceFile.getCoverage(this.sourceFiles)),
+	}
 }

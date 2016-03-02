@@ -62,6 +62,16 @@ class SourceFileSpecification extends Specification {
 		line.code == "- (id)init {"
 	}
 
+	def "parse line 24"() {
+		when:
+		SourceFile data = new SourceFile( getReportLines("OBTableViewSection.txt"), null);
+		SourceLine line = data.sourceLines.get(23)
+
+		then:
+		line.number == 24
+		line.hits == 32
+		line.code == "		self.editable = YES;"
+	}
 
 	def "parse methods"() {
 		when:

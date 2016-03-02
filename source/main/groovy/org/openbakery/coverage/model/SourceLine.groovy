@@ -56,6 +56,25 @@ class SourceLine {
 		return this.hits
 	}
 
+
+	String getHitsAsString() {
+		if (this.hits < 0) {
+			return ""
+		}
+		return this.hits.toString()
+	}
+
+	String getHitsRate() {
+		if (this.hits == 0) {
+			return "missing"
+		}
+
+		if (this.hits > 0) {
+			return "covered"
+		}
+		return ""
+	}
+
 	String getCode() {
 		return this.code
 	}

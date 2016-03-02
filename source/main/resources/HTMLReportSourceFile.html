@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8"/>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+	<meta name="description" content=""/>
+	<meta name="author" content=""/>
+	<title>Coverage Report</title>
+	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+	<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.2.0/styles/default.min.css"/>
+	<style>
+		pre {
+					background-color: transparent;
+					color: black;
+					font-size: 100%;
+					padding: 0;
+					border: 0;
+					line-height: 1;
+		}
+		.code {
+			font-size: 90%; !important;
+			font-family: Menlo,Monaco,Consolas,"Courier New",monospace;
+		}
+		.code td {
+			border-top: 0 !important;
+			border-left: 1px solid #ddd;
+			padding: 0 0.5em !important;
+		}
+		table {
+			border: 1px solid #ddd;
+		}
+		.hljs {
+			background-color: transparent;
+		}
+		.covered {
+			background-color: LightGreen;
+		}
+		.missing {
+			background-color: LightPink;
+		}
+
+	</style>
+</head>
+
+<body>
+<div class="container">
+
+	<div class="starter-template">
+		<h1>Coverage Report</h1>
+	</div>
+
+
+	<table class="table code">
+		<tbody>
+		{{#sourceLines}}
+		<tr class="{{hitsRate}}">
+			<td class="hits">{{hitsAsString}}</td>
+			<td class="linenumber">{{number}}</td>
+			<td class="codeline"><pre>{{code}}</pre></td>
+		</tr>
+		{{/sourceLines}}
+		</tbody>
+	</table>
+
+	<footer>
+		<div class="text-muted text-center">
+			Generated using <a href="https://github.com/openbakery/CoverageReport">CoverageReport</a>
+		</div>
+	</footer>
+
+
+</div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="bootstrap/js/bootstrap.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.2.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script>
+	$(function(){
+
+
+		$('.codeline').each(function(i, block) {
+	    hljs.highlightBlock(block);
+	  });
+
+  	$(".Coverage-Rate-Ok").addClass("progress-bar-warning");
+  	$(".Coverage-Rate-Poor").addClass("progress-bar-danger");
+  	$(".Coverage-Rate-Good").addClass("progress-bar-success");
+  });
+</script>
+</body>
+</html>

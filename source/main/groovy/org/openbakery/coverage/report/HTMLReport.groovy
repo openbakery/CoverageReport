@@ -3,6 +3,8 @@ package org.openbakery.coverage.report
 import com.github.mustachejava.DefaultMustacheFactory
 import com.github.mustachejava.Mustache
 import com.github.mustachejava.MustacheFactory
+import org.apache.commons.io.FilenameUtils
+import org.openbakery.coverage.model.SourceFile
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
@@ -24,7 +26,17 @@ class HTMLReport {
 
 		downloadBootstrap(destinationDirectory)
 
-		InputStream inputStream = TextReport.class.getResourceAsStream("/HTMLReport.html")
+
+		generateOverall(reportData, destinationDirectory)
+
+		reportData.sourceFiles.each {
+			generateReportForSourceFile(it, destinationDirectory)
+		}
+
+	}
+
+	void generateOverall(ReportData reportData, File destinationDirectory) {
+		InputStream inputStream = TextReport.class.getResourceAsStream("/HTMLReportOverall.html")
 		Reader reader = new InputStreamReader(inputStream);
 
 		File destinationFile = new File(destinationDirectory, "index.html")
@@ -35,6 +47,25 @@ class HTMLReport {
 		Mustache mustache = mustacheFactory.compile(reader, "template")
 
 		mustache.execute(writer, reportData.data)
+	  writer.flush()
+		reader.close()
+
+	}
+
+
+	void generateReportForSourceFile(SourceFile sourceFile, File destinationDirectory) {
+		InputStream inputStream = TextReport.class.getResourceAsStream("/HTMLReportSourceFile.html")
+		Reader reader = new InputStreamReader(inputStream);
+		String filename = sourceFile.filename.replace("/", "_")
+		filename = FilenameUtils.getBaseName(filename) + ".html"
+		File destinationFile = new File(destinationDirectory, filename)
+		logger.debug("create html report {}", destinationFile)
+		Writer writer = new FileWriter(destinationFile);
+
+		MustacheFactory mustacheFactory = new DefaultMustacheFactory()
+		Mustache mustache = mustacheFactory.compile(reader, "template")
+
+		mustache.execute(writer, sourceFile)
 	  writer.flush()
 		reader.close()
 	}

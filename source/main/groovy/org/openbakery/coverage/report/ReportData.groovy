@@ -79,7 +79,7 @@ class ReportData {
 						totalCoverageInPercent: "${((int) (SourceFile.getCoverage(this.sourceFiles) * 1000)) / 10}",
 						totalLinesNotCovered  : SourceFile.getLinesNotCovered(this.sourceFiles),
 						totalCoverageRate     : SourceFile.getCoverageRate(SourceFile.getCoverage(this.sourceFiles)),
-						currentTime           : System.currentTimeSeconds(),
+						currentTime           : (long)(System.currentTimeMillis() / 1000),
 						currentDate						: dateFormat.format(new Date())
 		]
 	}

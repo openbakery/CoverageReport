@@ -69,7 +69,7 @@ class XMLReportSpecification extends Specification {
 		coverage.attributes().size() == 4
 		coverage.attributes()."branch-rate" == "0.0"
 		coverage.attributes()."line-rate" == "0.6610169492"
-		coverage.attributes().timestamp[0..-3] == System.currentTimeSeconds().toString()[0..-3]
+		coverage.attributes().timestamp[0..-3] == ((long)(System.currentTimeMillis()/1000)).toString()[0..-3]
 		coverage.attributes().version == "CoverageReport-1.0"
 	}
 

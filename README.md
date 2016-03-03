@@ -22,10 +22,11 @@ usage: CoverageReport [options]
  -i,--include <include>     Files to include as regex pattern
  -o,--output <output>       Output directory for the generated reports
  -p,--profdata <profdata>   Instrumentation-based profile file (mandatory)
+ -r,--title <title>         Report title
  -t,--type <type>           Report type. Possible values: text, html or
                             xml
 ```
 
 ## Download
 
-You can download a binary release here: http://openbakery.org/download/CoverageReport-0.9.zip
+You can download a binary release here: http://openbakery.org/download/CoverageReport-0.9.2.zip

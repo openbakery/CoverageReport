@@ -23,6 +23,7 @@ class CoverageReport {
 			i longOpt: 'include', args: 1, argName:'include', 'Files to include as regex pattern'
 			e longOpt: 'exclude', args: 1, argName:'exclude', 'Files to exclude as regex pattern'
 			t longOpt: 'type', args: 1, argName:'type', 'Report type. Possible values: text, html or xml'
+			r longOpt: 'title', args: 1, argName:'title', 'Report title'
 			o longOpt: 'output', args: 1, argName:'output', 'Output directory for the generated reports'
 			d longOpt: 'debug', 'Enable debug log'
 
@@ -62,6 +63,9 @@ class CoverageReport {
 			setLoggingLevel(Level.WARN)
 		}
 
+		if (options.title) {
+			report.title = options.r
+		}
 	}
 
 	void setLoggingLevel(Level level) {

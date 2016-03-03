@@ -140,4 +140,13 @@ class SourceFileSpecification extends Specification {
 		data.sourceLines.size() == 147
 	}
 
+	def "report filename"() {
+		when:
+		SourceFile data = new SourceFile(getReportLines("OBTableViewSection.txt"), "/Users/rene/workspace/openbakery/OBTableViewController/");
+
+		then:
+		data.fileBasename == "Core_Source_OBTableViewSection"
+
+	}
+
 }

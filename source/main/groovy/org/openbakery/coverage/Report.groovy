@@ -51,6 +51,7 @@ class Report implements OutputAppender {
 	Type type
 	String include
 	String exclude
+	String title
 
 	Report() {
 		setBaseDirectory(new File("").absolutePath)

@@ -36,7 +36,7 @@
 <div class="container">
 
 	<div class="starter-template">
-		<h1>Coverage Report</h1>
+		<h1>{{title}}</h1>
 	</div>
 
 	<table class="table table-bordered">
@@ -83,7 +83,7 @@
 
 		{{#sourceFiles}}
 		<tr>
-			<td class="name">{{filename}}</td>
+			<td class="name"><a href="{{fileBasename}}.html">{{filename}}</a></td>
 			<td>
 				<div class="progress">
 					<div class="progress-bar Coverage-Rate-{{coverageRate}}" role="progressbar" aria-valuenow="{{coverageInPercent}}" aria-valuemin="0" aria-valuemax="100"

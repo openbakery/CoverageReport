@@ -158,4 +158,17 @@ class CoverageReportSpecification extends Specification {
 		then:
 		coverageReport.report.exclude == "*"
 	}
+
+	def "test title"() {
+		when:
+		def args = []
+		args << "--title"
+		args << "MyProject"
+
+		CoverageReport coverageReport = new CoverageReport(args as String[])
+		coverageReport.processOptions()
+
+		then:
+		coverageReport.report.title == "MyProject"
+	}
 }

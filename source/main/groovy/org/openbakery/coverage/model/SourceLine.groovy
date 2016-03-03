@@ -1,5 +1,7 @@
 package org.openbakery.coverage.model
 
+import java.text.SimpleDateFormat
+
 /**
  * Created by René Pirringer
  */

@@ -83,10 +83,43 @@ class HTMLReportSpecification extends Specification {
 
 
 		html.body.div.table[1].tbody.tr.size() == 1
-		html.body.div.table[1].tbody.tr[0].td[0].value()[0] == "Core/Source/OBTableViewSection.m"
+		html.body.div.table[1].tbody.tr[0].td[0].a[0].value()[0] == "Core/Source/OBTableViewSection.m"
 		html.body.div.table[1].tbody.tr[0].td[2].value()[0] == "91"
 		html.body.div.table[1].tbody.tr[0].td[3].value()[0] == "59"
 		html.body.div.table[1].tbody.tr[0].td[4].value()[0] == "20"
+	}
+
+	def "test html report title"() {
+		given:
+		htmlReport.bootstrap = null
+		ReportData data = getReportData()
+		data.title = "My Project"
+
+		when:
+		htmlReport.generate(data, tmp)
+		File xmlFile = new File(tmp, "index.html")
+		def parser= getXmlParser()
+		def html =  parser.parse(xmlFile)
+
+		then:
+
+		html.body.div[0].div[0].h1[0].value()[0] == "My Project"
+	}
+
+	def "test html report default title"() {
+		given:
+		htmlReport.bootstrap = null
+		ReportData data = getReportData()
+
+		when:
+		htmlReport.generate(data, tmp)
+		File xmlFile = new File(tmp, "index.html")
+		def parser= getXmlParser()
+		def html =  parser.parse(xmlFile)
+
+		then:
+
+		html.body.div[0].div[0].h1[0].value()[0] == "Coverage Report"
 	}
 
 
@@ -114,12 +147,10 @@ class HTMLReportSpecification extends Specification {
 		def html =  parser.parse(xmlFile)
 
 		then:
-		html.body.div.table[0].tbody.tr.size() == 91
-		html.body.div.table[0].tbody.tr[0].td[0].value()[0] == null
-		html.body.div.table[0].tbody.tr[0].td[0].attributes()["class"] == "hits"
-		html.body.div.table[0].tbody.tr[21].attributes()["class"] == "covered"
-		html.body.div.table[0].tbody.tr[50].attributes()["class"] == "missing"
-		//html.body.div.table[0].tbody.tr[0].td[0].value()[0] == ""
-		//SourceFile.getCoverageRate(SourceFile.getCoverage(this.sourceFiles)),
+		html.body.div.table[1].tbody.tr.size() == 91
+		html.body.div.table[1].tbody.tr[0].td[0].div[0].value()[0] == null
+		html.body.div.table[1].tbody.tr[0].td[0].attributes()["class"] == "hits"
+		html.body.div.table[1].tbody.tr[21].td[0].div[0].attributes()["class"] == "covered"
+		html.body.div.table[1].tbody.tr[50].td[0].div[0].attributes()["class"] == "missing"
 	}
 }

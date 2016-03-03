@@ -15,8 +15,10 @@ class ReportData {
 
 	Map<String, SourcePackage> sourcePackages
 	String baseDirectory
+	String title
 
 	public ReportData(List<SourceFile>sourceFiles) {
+		title = "Coverage Report"
 		sourcePackages = new TreeMap<>()
 		sourceFiles.each {
 			String packageName = getPackageName(it.filename)
@@ -36,6 +38,7 @@ class ReportData {
 		}
 		return packageName
 	}
+
 
 	def getDataTruncated() {
 		def sourceFileData = []
@@ -57,19 +60,21 @@ class ReportData {
 		}
 
 		def data = [
-						sourceFiles: sourceFileData,
-						totalLinesNumber:  "${SourceFile.getTotalLines(sourceFiles)}".padLeft(8),
-						totalLinesExecuted: "${SourceFile.getLinesExecuted(sourceFiles)}".padLeft(8),
-						totalCoverage: "${(SourceFile.getCoverage(sourceFiles)*100).intValue()}%".padLeft(8),
+						title               : this.title,
+						sourceFiles         : sourceFileData,
+						totalLinesNumber    : "${SourceFile.getTotalLines(sourceFiles)}".padLeft(8),
+						totalLinesExecuted  : "${SourceFile.getLinesExecuted(sourceFiles)}".padLeft(8),
+						totalCoverage       : "${(SourceFile.getCoverage(sourceFiles) * 100).intValue()}%".padLeft(8),
 						totalLinesNotCovered: "${SourceFile.getLinesNotCovered(sourceFiles)}".padLeft(8)
 		]
 		return data
 	}
 
 	def getData() {
-		SimpleDateFormat dateFormat = new SimpleDateFormat();
+		SimpleDateFormat dateFormat = new SimpleDateFormat()
 
 		return [
+						title                 : this.title,
 						sourceFiles           : this.sourceFiles,
 						sourcePackages        : this.sourcePackages.values(),
 						totalBrancheRate      : "0.0",
@@ -79,8 +84,8 @@ class ReportData {
 						totalCoverageInPercent: "${((int) (SourceFile.getCoverage(this.sourceFiles) * 1000)) / 10}",
 						totalLinesNotCovered  : SourceFile.getLinesNotCovered(this.sourceFiles),
 						totalCoverageRate     : SourceFile.getCoverageRate(SourceFile.getCoverage(this.sourceFiles)),
-						currentTime           : (long)(System.currentTimeMillis() / 1000),
-						currentDate						: dateFormat.format(new Date())
+						currentTime           : (long) (System.currentTimeMillis() / 1000),
+						currentDate           : dateFormat.format(new Date())
 		]
 	}
 

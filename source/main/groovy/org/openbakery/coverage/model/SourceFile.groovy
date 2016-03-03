@@ -2,6 +2,8 @@ package org.openbakery.coverage.model
 
 import org.apache.commons.io.FilenameUtils
 
+import java.text.SimpleDateFormat
+
 /**
  * Created by René Pirringer
  */
@@ -48,6 +50,11 @@ class SourceFile {
 		return line - baseDirectory
 	}
 
+	String getFileBasename() {
+		String filenameEscaped = filename.replace("/", "_")
+		return FilenameUtils.getBaseName(filenameEscaped)
+	}
+
 	List<SourceLine>getSourceLinesCovered() {
 		return sourceLines.findAll { it.hits != SourceLine.NOT_A_NUMBER }
 	}
@@ -83,6 +90,11 @@ class SourceFile {
 
 	Coverage getCoverageRate() {
 		return getCoverageRate(getCoverage())
+	}
+
+	String getCurrentDate() {
+		SimpleDateFormat dateFormat = new SimpleDateFormat()
+		return dateFormat.format(new Date())
 	}
 
 	static long getLinesCovered(List<SourceFile> sourceFiles) {

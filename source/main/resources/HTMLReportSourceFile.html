@@ -10,13 +10,25 @@
 	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
 	<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.2.0/styles/default.min.css"/>
 	<style>
+		.progress {
+			width: 12vw;
+		}
+		.number {
+			text-align:right;
+			width: 4vw;
+		}
+		.name {
+			width: 100%;
+		}
 		pre {
-					background-color: transparent;
-					color: black;
-					font-size: 100%;
-					padding: 0;
-					border: 0;
-					line-height: 1;
+			background-color: transparent;
+			color: black;
+			font-size: 100%;
+			padding: 0 0.5em;
+			margin: 0 !important;
+			border: 0;
+			border-radius: 0;
+			float: left;
 		}
 		.code {
 			font-size: 90%; !important;
@@ -24,11 +36,16 @@
 		}
 		.code td {
 			border-top: 0 !important;
-			border-left: 1px solid #ddd;
-			padding: 0 0.5em !important;
+			border-right: 1px solid #ddd;
+			padding: 0 !important;
+			line-height: 2em;
 		}
-		table {
+		.code td div {
+			padding: 0 0.5em;
+		}
+		.code {
 			border: 1px solid #ddd;
+			background-color: #eee;
 		}
 		.hljs {
 			background-color: transparent;
@@ -51,13 +68,43 @@
 	</div>
 
 
+	<table class="table table-bordered">
+		<thead>
+		<tr>
+			<th>Total</th>
+			<th>Coverage</th>
+			<th>Lines</th>
+			<th>Executed</th>
+			<th>Missing</th>
+		</tr>
+		</thead>
+		<tbody>
+		<tr>
+			<td class="name">{{filename}}</td>
+			<td>
+				<div class="progress">
+					<div class="progress-bar Coverage-Rate-{{coverageRate}}" role="progressbar" aria-valuenow="{{coverageInPercent}}" aria-valuemin="0" aria-valuemax="100" style="width: {{coverageInPercent}}%;">
+						{{coverageInPercent}}%
+					</div>
+				</div>
+			</td>
+			<td class="number">{{linesNumber}}</td>
+			<td class="number">{{linesExecuted}}</td>
+			<td class="number">{{linesNotCovered}}</td>
+		</tr>
+		<tr>
+			<td colspan="5">{{currentDate}}</td>
+		</tr>
+		</tbody>
+	</table>
+
 	<table class="table code">
 		<tbody>
 		{{#sourceLines}}
-		<tr class="{{hitsRate}}">
-			<td class="hits">{{hitsAsString}}</td>
-			<td class="linenumber">{{number}}</td>
-			<td class="codeline"><pre>{{code}}</pre></td>
+		<tr>
+			<td class="hits"><div class="{{hitsRate}}">{{hitsAsString}}</div></td>
+			<td class="linenumber"><div class="{{hitsRate}}">{{number}}</div></td>
+			<td class="codeline"><pre class="{{hitsRate}}">{{code}}</pre></td>
 		</tr>
 		{{/sourceLines}}
 		</tbody>

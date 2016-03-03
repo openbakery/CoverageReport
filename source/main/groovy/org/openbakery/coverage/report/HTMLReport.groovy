@@ -56,9 +56,7 @@ class HTMLReport {
 	void generateReportForSourceFile(SourceFile sourceFile, File destinationDirectory) {
 		InputStream inputStream = TextReport.class.getResourceAsStream("/HTMLReportSourceFile.html")
 		Reader reader = new InputStreamReader(inputStream);
-		String filename = sourceFile.filename.replace("/", "_")
-		filename = FilenameUtils.getBaseName(filename) + ".html"
-		File destinationFile = new File(destinationDirectory, filename)
+		File destinationFile = new File(destinationDirectory, sourceFile.getFileBasename() + ".html")
 		logger.debug("create html report {}", destinationFile)
 		Writer writer = new FileWriter(destinationFile);
 

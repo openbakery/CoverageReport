@@ -299,4 +299,34 @@ class ReportSpecification extends Specification {
 		report.reportData.sourceFiles[16].filename.startsWith("Demo/Source")
 	}
 
+
+	def "report title default"() {
+		given:
+		report.destinationPath = new File(tmp, "coverage")
+		report.commandRunner = new CommandRunner();
+		report.exclude = "/Applications/.*"
+		report.baseDirectory = "/Users/rene/workspace/openbakery/OBTableViewController"
+
+		when:
+		createReport()
+
+		then:
+		report.reportData.title == "Coverage Report"
+	}
+
+	def "report custom title"() {
+		given:
+		report.destinationPath = new File(tmp, "coverage")
+		report.commandRunner = new CommandRunner();
+		report.exclude = "/Applications/.*"
+		report.baseDirectory = "/Users/rene/workspace/openbakery/OBTableViewController"
+		report.title = "My Project"
+
+		when:
+		createReport()
+
+		then:
+		report.reportData.title == "My Project"
+	}
+
 }

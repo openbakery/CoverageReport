@@ -18,7 +18,15 @@ class ReportData {
 	String title
 
 	public ReportData(List<SourceFile>sourceFiles) {
-		title = "Coverage Report"
+		this(sourceFiles, null)
+	}
+	public ReportData(List<SourceFile>sourceFiles, String title) {
+		if (title != null) {
+			this.title = title
+		} else {
+			this.title = "Coverage Report"
+		}
+
 		sourcePackages = new TreeMap<>()
 		sourceFiles.each {
 			String packageName = getPackageName(it.filename)

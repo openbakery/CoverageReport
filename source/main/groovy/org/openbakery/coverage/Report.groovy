@@ -204,7 +204,7 @@ class Report implements OutputAppender {
 
 	def getReportData() {
 		if (sourceFiles != null) {
-			return new ReportData(getFilteredSourceFiles())
+			return new ReportData(getFilteredSourceFiles(), title)
 		}
 		return null
 	}

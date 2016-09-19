@@ -8,7 +8,7 @@ The following example generates a HTML coverage report of the [OBTableViewContro
 > ~/CoverageReport/bin/CoverageReport -b ./build/sym/Debug-iphonesimulator/Demo\ App.app/Demo\ App -p ./build/derivedData/Build/Intermediates/CodeCoverage/Demo\ App/Coverage.profdata  --type html --include "Core/Source/.*"
 ```
 
-Here is the result: http://openbakery.org/demo/coverage/index.html
+Here is the result: http://repo.openbakery.org/demo/coverage/index.html
 
 ## Usage:
 

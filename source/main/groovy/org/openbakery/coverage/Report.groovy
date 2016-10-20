@@ -204,6 +204,7 @@ class Report implements OutputAppender {
 
 	def getReportData() {
 		if (sourceFiles != null) {
+			logger.debug("create report data with source files: {}", sourceFiles)
 			return new ReportData(getFilteredSourceFiles(), title)
 		}
 		return null

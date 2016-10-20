@@ -146,6 +146,24 @@ class SourceFileSpecification extends Specification {
 
 		then:
 		data.fileBasename == "Core_Source_OBTableViewSection"
+	}
+
+
+	def "data is not a file"() {
+		given:
+		def reportData = getReportLines("OBTableViewSection.txt");
+		def wrongInputLines = [
+						"^[[0;31mwarning...",
+						"^[[0;31mwarning...",
+						"foobar"
+		]
+		wrongInputLines.addAll(reportData)
+
+		when:
+		SourceFile data = new SourceFile(wrongInputLines, "/Users/rene/workspace/openbakery/OBTableViewController/");
+
+		then:
+		data.filename == "Core/Source/OBTableViewSection.m"
 
 	}
 

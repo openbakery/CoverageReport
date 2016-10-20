@@ -24,8 +24,12 @@ class SourceFile {
 			}
 
 
-			if (index == 0) {
-				filename = parseFilename(value, baseDirectory)
+			if (filename == null) {
+				File file = new File(parseFilename(value))
+				// make sure that the given path is a file path, because the value is a absolute path test if it is really, otherwise the string is not a file
+				if (file.isAbsolute()) {
+					filename = file.absolutePath - baseDirectory
+				}
 			} else {
 				SourceLine sourceLine = new SourceLine(value)
 				if (currentMethod == null && sourceLine.hits != SourceLine.NOT_A_NUMBER) {
@@ -43,11 +47,11 @@ class SourceFile {
 
 	}
 
-	String parseFilename(String line, String baseDirectory) {
+	String parseFilename(String line) {
 		if (line.endsWith(":")) {
-			return line[0..-2]  - baseDirectory
+			return line[0..-2]
 		}
-		return line - baseDirectory
+		return line
 	}
 
 	String getFileBasename() {

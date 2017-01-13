@@ -19,7 +19,7 @@ class TextReportSpecification extends Specification {
 	def setup() {
 		textReport = new TextReport()
 		tmp = new File(System.getProperty("java.io.tmpdir"), "coverage")
-
+		tmp.mkdirs()
 	}
 
 	def tearDown() {

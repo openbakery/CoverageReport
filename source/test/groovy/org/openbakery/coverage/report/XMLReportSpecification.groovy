@@ -17,7 +17,7 @@ class XMLReportSpecification extends Specification {
 	def setup() {
 		xmlReport = new XMLReport()
 		tmp = new File(System.getProperty("java.io.tmpdir"), "coverage")
-
+		tmp.mkdirs()
 	}
 
 	def tearDown() {

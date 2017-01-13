@@ -15,6 +15,7 @@ class HTMLReportSpecification extends Specification {
 	def setup() {
 		htmlReport = new HTMLReport()
 		tmp = new File(System.getProperty("java.io.tmpdir"), "coverage")
+		tmp.mkdirs()
 	}
 
 	def tearDown() {

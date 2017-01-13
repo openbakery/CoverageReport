@@ -37,7 +37,7 @@ class HTMLReport {
 
 	void generateOverall(ReportData reportData, File destinationDirectory) {
 		InputStream inputStream = TextReport.class.getResourceAsStream("/HTMLReportOverall.html")
-		Reader reader = new InputStreamReader(inputStream);
+		Reader reader = new InputStreamReader(inputStream)
 
 		File destinationFile = new File(destinationDirectory, "index.html")
 		logger.debug("create html report {}", destinationFile)

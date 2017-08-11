@@ -40,4 +40,13 @@ class SourceLineSpecification extends Specification {
 		then:
 		line.hits == 1110000000
 	}
+
+	def "Line Format after Xcode 8.3"() {
+		when:
+		SourceLine line = new SourceLine('   17|      1|')
+
+		then:
+		line.hits == 1
+
+	}
 }

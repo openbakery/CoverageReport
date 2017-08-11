@@ -1,6 +1,7 @@
 package org.openbakery.coverage.model
 
 import java.text.SimpleDateFormat
+import java.util.regex.Pattern
 
 /**
  * Created by René Pirringer
@@ -8,6 +9,7 @@ import java.text.SimpleDateFormat
 class SourceLine {
 
 	static long NOT_A_NUMBER = -1
+	static Pattern LINE_PATTERN_AFTER_XCODE_8_3 = ~/^(.{5})\|(.{7})\|.*/
 
 	long number // hopefully no one has a source file that is longer as max int, but just to be sure
 	long hits
@@ -17,8 +19,14 @@ class SourceLine {
 
 	SourceLine(String line) {
 		if (line.length()>12) {
-			this.hits = parseInt(line[0..6])
-			this.number = parseInt(line[8..12])
+			if ( line ==~ LINE_PATTERN_AFTER_XCODE_8_3 ) {
+				// NOTE: numbers and hits are transposed
+				this.number = parseInt(line[0..4])
+				this.hits = parseInt(line[6..12])
+			} else {
+				this.hits = parseInt(line[0..6])
+				this.number = parseInt(line[8..12])
+			}
 		}
 		if (line.length()>14) {
 			this.code = line[14..-1]
@@ -26,6 +34,7 @@ class SourceLine {
 	}
 
 	long parseInt(String text) {
+
 		String trimmed = text.trim()
 		if (trimmed.length() == 0) {
 			return NOT_A_NUMBER
